@@ -1,0 +1,90 @@
+@model List<PersonalHomepage.Models.Skill>
+@{
+    ViewData["Title"] = "Personal Homepage";
+}
+
+<div class="container py-5">
+    <div class="row mb-5 animate-fade-in">
+        <div class="col-md-6">
+            <h1 class="display-4 fw-bold text-gradient">Welcome to My Personal Homepage</h1>
+            <p class="lead">I am a full-stack developer specializing in .NET and Web technologies.</p>
+            <p>I love coding, solving complex problems, and continuously learning new technologies.</p>
+            <a href="@Url.Action("Contact", "Home")" class="btn btn-primary btn-lg mt-3">Contact Me</a>
+        </div>
+        <div class="col-md-6 text-center">
+            <img src="https://via.placeholder.com/400" alt="Personal Photo" class="img-fluid rounded-circle shadow">
+        </div>
+    </div>
+
+    <hr class="my-5">
+
+    <div class="row mb-5 animate-fade-in" id="skills" style="animation-delay: 0.3s;">
+        <div class="col-12 text-center mb-4">
+            <h2 class="display-5 fw-bold text-gradient">My Skills</h2>
+            <p class="lead">Here are the technologies I specialize in</p>
+        </div>
+
+        @foreach (var skill in Model)
+        {
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">@skill.Name</h5>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: @skill.Proficiency%" 
+                                 aria-valuenow="@skill.Proficiency" aria-valuemin="0" aria-valuemax="100">@skill.Proficiency%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <hr class="my-5">
+
+    <div class="row mb-5 animate-fade-in" id="projects" style="animation-delay: 0.6s;">
+        <div class="col-12 text-center mb-4">
+            <h2 class="display-5 fw-bold text-gradient">My Projects</h2>
+            <p class="lead">These are some of my recently completed projects</p>
+        </div>
+
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Project Screenshot">
+                <div class="card-body">
+                    <h5 class="card-title">E-Commerce Platform</h5>
+                    <p class="card-text">A complete e-commerce solution developed using ASP.NET Core and Entity Framework.</p>
+                </div>
+                <div class="card-footer bg-transparent border-0">
+                    <a href="@Url.Action("ProjectDetails", "Home", new { id = 1 })" class="btn btn-outline-primary">View Details</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Project Screenshot">
+                <div class="card-body">
+                    <h5 class="card-title">Task Management System</h5>
+                    <p class="card-text">A modern task management application based on .NET Core and Angular.</p>
+                </div>
+                <div class="card-footer bg-transparent border-0">
+                    <a href="@Url.Action("ProjectDetails", "Home", new { id = 2 })" class="btn btn-outline-primary">View Details</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Project Screenshot">
+                <div class="card-body">
+                    <h5 class="card-title">Social Media Analytics Tool</h5>
+                    <p class="card-text">A social media data analysis platform developed using .NET and various APIs.</p>
+                </div>
+                <div class="card-footer bg-transparent border-0">
+                    <a href="@Url.Action("ProjectDetails", "Home", new { id = 3 })" class="btn btn-outline-primary">View Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

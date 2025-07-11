@@ -1,0 +1,85 @@
+@model PersonalHomepage.Models.ContactForm
+@{
+    ViewData["Title"] = "Contact Me";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center animate-fade-in">
+        <div class="col-md-8">
+            <h1 class="display-4 fw-bold text-center mb-4 text-gradient">Contact Me</h1>
+            <p class="lead text-center mb-5">Have any questions or interested in collaboration? Please fill out the form below to get in touch.</p>
+            
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    @TempData["SuccessMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            
+            <div class="card shadow-sm animate-fade-in" style="animation-delay: 0.3s;">
+                <div class="card-body p-4">
+                    <form asp-action="Contact" method="post">
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label">Name</label>
+                            <input asp-for="Name" class="form-control" required />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label">Email</label>
+                            <input asp-for="Email" type="email" class="form-control" required />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="Subject" class="form-label">Subject</label>
+                            <input asp-for="Subject" class="form-control" required />
+                            <span asp-validation-for="Subject" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="Message" class="form-label">Message</label>
+                            <textarea asp-for="Message" class="form-control" rows="5" required></textarea>
+                            <span asp-validation-for="Message" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="row mt-5 animate-fade-in" style="animation-delay: 0.6s;">
+                <div class="col-md-4 text-center mb-3">
+                    <div class="d-inline-block p-3 bg-light rounded-circle mb-3">
+                        <i class="bi bi-envelope fs-2 text-gradient"></i>
+                    </div>
+                    <h5>Email</h5>
+                    <p>contact@example.com</p>
+                </div>
+                
+                <div class="col-md-4 text-center mb-3">
+                    <div class="d-inline-block p-3 bg-light rounded-circle mb-3">
+                        <i class="bi bi-telephone fs-2 text-gradient"></i>
+                    </div>
+                    <h5>Phone</h5>
+                    <p>+86 123 4567 8910</p>
+                </div>
+                
+                <div class="col-md-4 text-center mb-3">
+                    <div class="d-inline-block p-3 bg-light rounded-circle mb-3">
+                        <i class="bi bi-geo-alt fs-2 text-gradient"></i>
+                    </div>
+                    <h5>Address</h5>
+                    <p>Chaoyang District, Beijing</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

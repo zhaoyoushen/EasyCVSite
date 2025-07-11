@@ -1,0 +1,49 @@
+@{
+    ViewData["Title"] = ViewData["ProjectName"];
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center animate-fade-in">
+        <div class="col-md-8">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Home</a></li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")#projects">Projects</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@ViewData["ProjectName"]</li>
+                </ol>
+            </nav>
+            
+            <h1 class="display-4 fw-bold text-center mb-4 text-gradient">@ViewData["ProjectName"]</h1>
+            
+            <div class="card shadow-sm animate-fade-in" style="animation-delay: 0.3s;">
+                <img src="https://via.placeholder.com/800x400" class="card-img-top" alt="Project Screenshot">
+                <div class="card-body p-4">
+                    <h5 class="mb-3">Project Description</h5>
+                    <p>@ViewData["ProjectDescription"]</p>
+                    
+                    <h5 class="mb-3 mt-4">Technologies Used</h5>
+                    <div class="d-flex flex-wrap gap-2 mb-4">
+                        <span class="badge bg-primary">ASP.NET Core</span>
+                        <span class="badge bg-primary">C#</span>
+                        <span class="badge bg-primary">Entity Framework</span>
+                        <span class="badge bg-primary">Bootstrap</span>
+                        <span class="badge bg-primary">JavaScript</span>
+                    </div>
+                    
+                    <h5 class="mb-3 mt-4">Key Features</h5>
+                    <ul>
+                        <li>Responsive design for all devices</li>
+                        <li>Secure user authentication and authorization</li>
+                        <li>RESTful API architecture</li>
+                        <li>Comprehensive data visualization</li>
+                        <li>Automated testing and CI/CD pipeline</li>
+                    </ul>
+                    
+                    <div class="mt-4">
+                        <a href="@Url.Action("Index", "Home")#projects" class="btn btn-outline-primary">Back to Projects</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
