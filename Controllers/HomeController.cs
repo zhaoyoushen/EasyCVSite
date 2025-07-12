@@ -2,25 +2,65 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using PersonalHomepage.Models;
 using PersonalHomepage.Services;
-using System.Collections.Generic;
+using System.Text.Json;
+using Microsoft.AspNetCore.Identity;
 
-namespace PersonalHomepage.Controllers;
-
-public class HomeController : Controller
+namespace PersonalHomepage.Controllers
 {
-    private readonly ILogger<HomeController> _logger;
-    private readonly IConfigurationService _configurationService;
-
-    public HomeController(ILogger<HomeController> logger, IConfigurationService configurationService)
+    public class HomeController : Controller
     {
-        _logger = logger;
-        _configurationService = configurationService;
+        private readonly ILogger<HomeController> _logger;
+        private readonly IConfigurationService _configurationService;
+        private readonly IUserConfigurationService _userConfigurationService;
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public HomeController(
+            ILogger<HomeController> logger, 
+            IConfigurationService configurationService,
+            IUserConfigurationService userConfigurationService,
+            UserManager<ApplicationUser> userManager)
+        {
+            _logger = logger;
+            _configurationService = configurationService;
+            _userConfigurationService = userConfigurationService;
+            _userManager = userManager;
+        }
+
+        public async Task<IActionResult> Index()
+    {
+        // 如果用户已登录，重定向到仪表板
+        if (User.Identity?.IsAuthenticated == true)
+        {
+            return RedirectToAction("Index", "Dashboard");
+        }
+        
+        // 显示欢迎页面
+        return View();
     }
-
-    public async Task<IActionResult> Index()
+    
+    [Route("u/{url}")]
+    public async Task<IActionResult> Public(string url)
     {
-        var configuration = await _configurationService.GetConfigurationAsync();
-        return View(configuration);
+        try
+        {
+            var configuration = await _userConfigurationService.GetPublicConfigurationAsync(url);
+            if (configuration == null)
+            {
+                return NotFound("Homepage not found or not published.");
+            }
+            
+            // 增加访问计数
+            await _userConfigurationService.IncrementViewCountAsync(url);
+            
+            ViewBag.IsPublicView = true;
+            ViewBag.CustomUrl = url;
+            return View("PublicProfile", configuration);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error loading public profile for URL: {Url}", url);
+            return NotFound("Homepage not found.");
+        }
     }
 
     public IActionResult Privacy()
@@ -138,5 +178,6 @@ public class HomeController : Controller
     public IActionResult Error()
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
     }
 }

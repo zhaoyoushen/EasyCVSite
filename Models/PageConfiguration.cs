@@ -56,17 +56,16 @@ namespace PersonalHomepage.Models
         public string? BackgroundColor { get; set; }
         public string? TextColor { get; set; }
         public string? FontFamily { get; set; }
-        public DisplayStyle Style { get; set; } = DisplayStyle.Default;
+        public DisplayStyle DisplayStyle { get; set; } = DisplayStyle.Modern;
     }
 
     public enum DisplayStyle
     {
-        Default,
-        Modern,
-        Classic,
-        Minimal,
-        Creative,
-        Professional
+        Modern = 0,      // Modern Style (Default)
+        Classic = 1,     // Classic Style
+        Minimal = 2,     // Minimal Style
+        Creative = 3,    // Creative Style
+        Professional = 4 // Professional Style
     }
 
     public class ConfigurationUpload
