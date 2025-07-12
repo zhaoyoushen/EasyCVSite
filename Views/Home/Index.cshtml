@@ -1,90 +1,152 @@
-@model List<PersonalHomepage.Models.Skill>
+@model PersonalHomepage.Models.PageConfiguration
 @{
-    ViewData["Title"] = "Personal Homepage";
+    ViewData["Title"] = Model?.PersonalInfo?.Name ?? "Personal Homepage";
+    var currentStyle = Model?.Theme?.Style ?? PersonalHomepage.Models.DisplayStyle.Default;
+    var styleClass = currentStyle.ToString().ToLower();
 }
 
-<div class="container py-5">
-    <div class="row mb-5 animate-fade-in">
-        <div class="col-md-6">
-            <h1 class="display-4 fw-bold text-gradient">Welcome to My Personal Homepage</h1>
-            <p class="lead">I am a full-stack developer specializing in .NET and Web technologies.</p>
-            <p>I love coding, solving complex problems, and continuously learning new technologies.</p>
-            <a href="@Url.Action("Contact", "Home")" class="btn btn-primary btn-lg mt-3">Contact Me</a>
-        </div>
-        <div class="col-md-6 text-center">
-            <img src="https://via.placeholder.com/400" alt="Personal Photo" class="img-fluid rounded-circle shadow">
-        </div>
-    </div>
-
-    <hr class="my-5">
-
-    <div class="row mb-5 animate-fade-in" id="skills" style="animation-delay: 0.3s;">
-        <div class="col-12 text-center mb-4">
-            <h2 class="display-5 fw-bold text-gradient">My Skills</h2>
-            <p class="lead">Here are the technologies I specialize in</p>
-        </div>
-
-        @foreach (var skill in Model)
-        {
-            <div class="col-md-6 col-lg-4 mb-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">@skill.Name</h5>
-                        <div class="progress">
-                            <div class="progress-bar" role="progressbar" style="width: @skill.Proficiency%" 
-                                 aria-valuenow="@skill.Proficiency" aria-valuemin="0" aria-valuemax="100">@skill.Proficiency%</div>
-                        </div>
-                    </div>
-                </div>
+<!-- Style Selector -->
+<div class="container-fluid bg-light py-2">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-auto">
+                <label for="styleSelector" class="form-label mb-0"><i class="fas fa-palette"></i> Display Style:</label>
             </div>
-        }
-    </div>
-
-    <hr class="my-5">
-
-    <div class="row mb-5 animate-fade-in" id="projects" style="animation-delay: 0.6s;">
-        <div class="col-12 text-center mb-4">
-            <h2 class="display-5 fw-bold text-gradient">My Projects</h2>
-            <p class="lead">These are some of my recently completed projects</p>
-        </div>
-
-        <div class="col-md-6 col-lg-4 mb-4">
-            <div class="card h-100 shadow-sm">
-                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Project Screenshot">
-                <div class="card-body">
-                    <h5 class="card-title">E-Commerce Platform</h5>
-                    <p class="card-text">A complete e-commerce solution developed using ASP.NET Core and Entity Framework.</p>
-                </div>
-                <div class="card-footer bg-transparent border-0">
-                    <a href="@Url.Action("ProjectDetails", "Home", new { id = 1 })" class="btn btn-outline-primary">View Details</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6 col-lg-4 mb-4">
-            <div class="card h-100 shadow-sm">
-                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Project Screenshot">
-                <div class="card-body">
-                    <h5 class="card-title">Task Management System</h5>
-                    <p class="card-text">A modern task management application based on .NET Core and Angular.</p>
-                </div>
-                <div class="card-footer bg-transparent border-0">
-                    <a href="@Url.Action("ProjectDetails", "Home", new { id = 2 })" class="btn btn-outline-primary">View Details</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6 col-lg-4 mb-4">
-            <div class="card h-100 shadow-sm">
-                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Project Screenshot">
-                <div class="card-body">
-                    <h5 class="card-title">Social Media Analytics Tool</h5>
-                    <p class="card-text">A social media data analysis platform developed using .NET and various APIs.</p>
-                </div>
-                <div class="card-footer bg-transparent border-0">
-                    <a href="@Url.Action("ProjectDetails", "Home", new { id = 3 })" class="btn btn-outline-primary">View Details</a>
-                </div>
+            <div class="col-auto">
+                <select id="styleSelector" class="form-select form-select-sm" onchange="changeStyle(this.value)">
+                    <option value="default" selected="@(currentStyle == PersonalHomepage.Models.DisplayStyle.Default)">Default</option>
+                    <option value="modern" selected="@(currentStyle == PersonalHomepage.Models.DisplayStyle.Modern)">Modern</option>
+                    <option value="classic" selected="@(currentStyle == PersonalHomepage.Models.DisplayStyle.Classic)">Classic</option>
+                    <option value="minimal" selected="@(currentStyle == PersonalHomepage.Models.DisplayStyle.Minimal)">Minimal</option>
+                    <option value="creative" selected="@(currentStyle == PersonalHomepage.Models.DisplayStyle.Creative)">Creative</option>
+                    <option value="professional" selected="@(currentStyle == PersonalHomepage.Models.DisplayStyle.Professional)">Professional</option>
+                </select>
             </div>
         </div>
     </div>
 </div>
+
+<div class="container py-5 style-@styleClass" id="mainContent">
+    @if (Model?.PersonalInfo != null && (!string.IsNullOrEmpty(Model.PersonalInfo.Name) || !string.IsNullOrEmpty(Model.PersonalInfo.WelcomeMessage) || !string.IsNullOrEmpty(Model.PersonalInfo.Description)))
+    {
+        <div class="row mb-5 animate-fade-in">
+            <div class="col-md-6">
+                @if (!string.IsNullOrEmpty(Model.PersonalInfo.WelcomeMessage))
+                {
+                    <h1 class="display-4 fw-bold text-gradient">@Model.PersonalInfo.WelcomeMessage</h1>
+                }
+                @if (!string.IsNullOrEmpty(Model.PersonalInfo.Title))
+                {
+                    <p class="lead">@Model.PersonalInfo.Title</p>
+                }
+                @if (!string.IsNullOrEmpty(Model.PersonalInfo.Description))
+                {
+                    <p>@Model.PersonalInfo.Description</p>
+                }
+                @if (Model.PersonalInfo.Highlights != null && Model.PersonalInfo.Highlights.Any())
+                {
+                    @foreach (var highlight in Model.PersonalInfo.Highlights)
+                    {
+                        <p>@highlight</p>
+                    }
+                }
+                <a href="@Url.Action("Contact", "Home")" class="btn btn-primary btn-lg mt-3">Contact Me</a>
+            </div>
+            <div class="col-md-6 text-center">
+                <img src="@(Model.PersonalInfo.ProfileImageUrl ?? "https://via.placeholder.com/400")" alt="@(Model.PersonalInfo.Name ?? "Personal Photo")" class="img-fluid rounded-circle shadow">
+            </div>
+        </div>
+        <hr class="my-5">
+    }
+
+    @if (Model?.Skills != null && Model.Skills.Any())
+    {
+        <div class="row mb-5 animate-fade-in" id="skills" style="animation-delay: 0.3s;">
+            <div class="col-12 text-center mb-4">
+                <h2 class="display-5 fw-bold text-gradient">My Skills</h2>
+                <p class="lead">Here are the technologies I specialize in</p>
+            </div>
+
+            @foreach (var skill in Model.Skills)
+            {
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">@skill.Name</h5>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: @skill.Proficiency%" 
+                                     aria-valuenow="@skill.Proficiency" aria-valuemin="0" aria-valuemax="100">@skill.Proficiency%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <hr class="my-5">
+    }
+
+    @if (Model?.Projects != null && Model.Projects.Any())
+    {
+        <div class="row mb-5 animate-fade-in" id="projects" style="animation-delay: 0.6s;">
+            <div class="col-12 text-center mb-4">
+                <h2 class="display-5 fw-bold text-gradient">My Projects</h2>
+                <p class="lead">These are some of my recently completed projects</p>
+            </div>
+
+            @foreach (var project in Model.Projects)
+            {
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <img src="@(project.ImageUrl ?? "https://via.placeholder.com/300x200")" class="card-img-top" alt="@project.Name Screenshot">
+                        <div class="card-body">
+                            <h5 class="card-title">@project.Name</h5>
+                            <p class="card-text">@project.Description</p>
+                            @if (project.Technologies != null && project.Technologies.Any())
+                            {
+                                <div class="mb-2">
+                                    @foreach (var tech in project.Technologies)
+                                    {
+                                        <span class="badge bg-secondary me-1">@tech</span>
+                                    }
+                                </div>
+                            }
+                        </div>
+                        <div class="card-footer bg-transparent border-0">
+                            <a href="@Url.Action("ProjectDetails", "Home", new { id = project.Id })" class="btn btn-outline-primary">View Details</a>
+                            @if (!string.IsNullOrEmpty(project.DemoUrl))
+                            {
+                                <a href="@project.DemoUrl" target="_blank" class="btn btn-outline-success ms-1">Demo</a>
+                            }
+                            @if (!string.IsNullOrEmpty(project.SourceCodeUrl))
+                            {
+                                <a href="@project.SourceCodeUrl" target="_blank" class="btn btn-outline-info ms-1">Code</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<script>
+function changeStyle(style) {
+    const mainContent = document.getElementById('mainContent');
+    mainContent.className = mainContent.className.replace(/style-\w+/g, '');
+    mainContent.classList.add('style-' + style);
+    
+    // 可以在这里添加AJAX调用来保存用户的样式偏好
+    // 或者使用localStorage来记住用户选择
+    localStorage.setItem('preferredStyle', style);
+}
+
+// 页面加载时恢复用户偏好的样式
+document.addEventListener('DOMContentLoaded', function() {
+    const savedStyle = localStorage.getItem('preferredStyle');
+    if (savedStyle) {
+        const selector = document.getElementById('styleSelector');
+        selector.value = savedStyle;
+        changeStyle(savedStyle);
+    }
+});
+</script>

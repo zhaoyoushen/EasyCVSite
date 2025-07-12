@@ -1,0 +1,128 @@
+{
+  "personalInfo": {
+    "name": "张三",
+    "title": "全栈开发工程师",
+    "description": "我是一名专注于.NET和Web技术的全栈开发工程师，热爱编程和技术创新。",
+    "profileImageUrl": "https://via.placeholder.com/400",
+    "welcomeMessage": "欢迎来到我的个人主页",
+    "highlights": [
+      "热爱编程，解决复杂问题，持续学习新技术。",
+      "拥有5年以上的软件开发经验。",
+      "专注于用户体验和代码质量。"
+    ]
+  },
+  "skills": [
+    {
+      "name": "C#",
+      "proficiency": 95
+    },
+    {
+      "name": "ASP.NET Core",
+      "proficiency": 90
+    },
+    {
+      "name": "JavaScript",
+      "proficiency": 85
+    },
+    {
+      "name": "TypeScript",
+      "proficiency": 80
+    },
+    {
+      "name": "React",
+      "proficiency": 75
+    },
+    {
+      "name": "SQL Server",
+      "proficiency": 85
+    },
+    {
+      "name": "Docker",
+      "proficiency": 70
+    },
+    {
+      "name": "Azure",
+      "proficiency": 65
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "name": "电商平台",
+      "description": "使用ASP.NET Core和Entity Framework开发的完整电商解决方案。",
+      "imageUrl": "https://via.placeholder.com/300x200",
+      "detailedDescription": "这是一个功能完整的电商平台，包括用户认证、产品目录、购物车、订单处理和管理后台。采用微服务架构，支持高并发访问，具有良好的扩展性和维护性。",
+      "technologies": ["ASP.NET Core", "Entity Framework", "SQL Server", "Bootstrap", "JavaScript"],
+      "demoUrl": "https://demo-ecommerce.example.com",
+      "sourceCodeUrl": "https://github.com/username/ecommerce-platform",
+      "completedDate": "2023-12-01T00:00:00"
+    },
+    {
+      "id": 2,
+      "name": "任务管理系统",
+      "description": "基于.NET Core和Angular的现代任务管理应用。",
+      "imageUrl": "https://via.placeholder.com/300x200",
+      "detailedDescription": "一个现代化的任务管理系统，支持任务创建、分配、状态跟踪、通知和报告功能。前端使用Angular框架，后端采用.NET Core Web API，实现了实时通信和数据同步。",
+      "technologies": [".NET Core", "Angular", "TypeScript", "Material UI", "SignalR"],
+      "demoUrl": "https://demo-taskmanager.example.com",
+      "sourceCodeUrl": "https://github.com/username/task-management",
+      "completedDate": "2024-03-15T00:00:00"
+    },
+    {
+      "id": 3,
+      "name": "社交媒体分析工具",
+      "description": "使用.NET和各种API开发的社交媒体数据分析平台。",
+      "imageUrl": "https://via.placeholder.com/300x200",
+      "detailedDescription": "这是一个社交媒体数据分析平台，能够收集、分析和可视化社交媒体指标，帮助企业做出数据驱动的决策。集成了多个社交媒体API，提供实时数据监控和趋势分析。",
+      "technologies": [".NET", "REST APIs", "Chart.js", "Azure", "Redis"],
+      "demoUrl": "https://demo-analytics.example.com",
+      "sourceCodeUrl": "https://github.com/username/social-analytics",
+      "completedDate": "2024-06-20T00:00:00"
+    },
+    {
+      "id": 4,
+      "name": "在线学习平台",
+      "description": "基于微服务架构的在线教育平台。",
+      "imageUrl": "https://via.placeholder.com/300x200",
+      "detailedDescription": "一个完整的在线学习平台，支持课程管理、视频播放、在线考试、学习进度跟踪等功能。采用微服务架构，使用Docker容器化部署，支持大规模用户并发访问。",
+      "technologies": ["ASP.NET Core", "Docker", "Kubernetes", "MongoDB", "RabbitMQ"],
+      "sourceCodeUrl": "https://github.com/username/learning-platform",
+      "completedDate": "2024-09-10T00:00:00"
+    }
+  ],
+  "contactInfo": {
+    "email": "zhangsan@example.com",
+    "phone": "+86 138-0013-8000",
+    "location": "北京, 中国",
+    "socialLinks": [
+      {
+        "platform": "GitHub",
+        "url": "https://github.com/zhangsan",
+        "icon": "fab fa-github"
+      },
+      {
+        "platform": "LinkedIn",
+        "url": "https://linkedin.com/in/zhangsan",
+        "icon": "fab fa-linkedin"
+      },
+      {
+        "platform": "微博",
+        "url": "https://weibo.com/zhangsan",
+        "icon": "fab fa-weibo"
+      },
+      {
+        "platform": "知乎",
+        "url": "https://zhihu.com/people/zhangsan",
+        "icon": "fas fa-question-circle"
+      }
+    ]
+  },
+  "theme": {
+    "primaryColor": "#007bff",
+    "secondaryColor": "#6c757d",
+    "backgroundColor": "#ffffff",
+    "textColor": "#333333",
+    "fontFamily": "'Microsoft YaHei', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+    "style": 0
+  }
+}

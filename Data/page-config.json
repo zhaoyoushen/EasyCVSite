@@ -1,0 +1,112 @@
+{
+  "personalInfo": {
+    "name": "Your Name",
+    "title": "Full-Stack Developer",
+    "description": "I am a full-stack developer specializing in .NET and Web technologies.",
+    "profileImageUrl": "https://via.placeholder.com/400",
+    "welcomeMessage": "Welcome to My Personal Homepage",
+    "highlights": [
+      "I love coding, solving complex problems, and continuously learning new technologies."
+    ]
+  },
+  "skills": [
+    {
+      "name": "C#",
+      "proficiency": 90
+    },
+    {
+      "name": "ASP.NET Core",
+      "proficiency": 85
+    },
+    {
+      "name": "JavaScript",
+      "proficiency": 80
+    },
+    {
+      "name": "HTML/CSS",
+      "proficiency": 85
+    },
+    {
+      "name": "SQL",
+      "proficiency": 75
+    },
+    {
+      "name": "Docker",
+      "proficiency": 70
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "name": "E-Commerce Platform",
+      "description": "A complete e-commerce solution developed using ASP.NET Core and Entity Framework.",
+      "imageUrl": "https://via.placeholder.com/300x200",
+      "detailedDescription": "A complete e-commerce solution developed using ASP.NET Core and Entity Framework. This project includes user authentication, product catalog, shopping cart, order processing, and admin dashboard.",
+      "technologies": [
+        "ASP.NET Core",
+        "Entity Framework",
+        "SQL Server",
+        "Bootstrap"
+      ],
+      "completedDate": "2025-01-12T01:12:25.6991182+01:00"
+    },
+    {
+      "id": 2,
+      "name": "Task Management System",
+      "description": "A modern task management application based on .NET Core and Angular.",
+      "imageUrl": "https://via.placeholder.com/300x200",
+      "detailedDescription": "A modern task management application based on .NET Core and Angular. Features include task creation, assignment, status tracking, notifications, and reporting.",
+      "technologies": [
+        ".NET Core",
+        "Angular",
+        "TypeScript",
+        "Material UI"
+      ],
+      "completedDate": "2025-04-12T01:12:25.7050091+02:00"
+    },
+    {
+      "id": 3,
+      "name": "Social Media Analytics Tool",
+      "description": "A social media data analysis platform developed using .NET and various APIs.",
+      "imageUrl": "https://via.placeholder.com/300x200",
+      "detailedDescription": "A social media data analysis platform developed using .NET and various APIs. This tool collects, analyzes, and visualizes social media metrics to help businesses make data-driven decisions.",
+      "technologies": [
+        ".NET",
+        "REST APIs",
+        "Chart.js",
+        "Azure"
+      ],
+      "completedDate": "2025-06-12T01:12:25.7050148+02:00"
+    }
+  ],
+  "contactInfo": {
+    "email": "your.email@example.com",
+    "phone": "\u002B1 (555) 123-4567",
+    "location": "Your City, Country",
+    "socialLinks": [
+      {
+        "platform": "GitHub",
+        "url": "https://github.com/yourusername",
+        "icon": "fab fa-github"
+      },
+      {
+        "platform": "LinkedIn",
+        "url": "https://linkedin.com/in/yourusername",
+        "icon": "fab fa-linkedin"
+      },
+      {
+        "platform": "Twitter",
+        "url": "https://twitter.com/yourusername",
+        "icon": "fab fa-twitter"
+      }
+    ]
+  },
+  "theme": {
+    "primaryColor": "#007bff",
+    "secondaryColor": "#6c757d",
+    "backgroundColor": "#ffffff",
+    "textColor": "#333333",
+    "fontFamily": "'Microsoft YaHei', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+    "style": 0
+  }
+}

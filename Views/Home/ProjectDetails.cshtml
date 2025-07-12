@@ -1,47 +1,72 @@
+@model PersonalHomepage.Models.Project
 @{
-    ViewData["Title"] = ViewData["ProjectName"];
+    ViewData["Title"] = Model?.Name ?? "Project Details";
 }
 
 <div class="container py-5">
-    <div class="row justify-content-center animate-fade-in">
-        <div class="col-md-8">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Home</a></li>
-                    <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")#projects">Projects</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">@ViewData["ProjectName"]</li>
-                </ol>
-            </nav>
+    <div class="row">
+        <div class="col-lg-8">
+            <h1 class="display-4 fw-bold text-gradient mb-4">@Model?.Name</h1>
             
-            <h1 class="display-4 fw-bold text-center mb-4 text-gradient">@ViewData["ProjectName"]</h1>
+            @if (!string.IsNullOrEmpty(Model?.ImageUrl))
+            {
+                <img src="@Model.ImageUrl" alt="@Model.Name" class="img-fluid rounded shadow mb-4">
+            }
             
-            <div class="card shadow-sm animate-fade-in" style="animation-delay: 0.3s;">
-                <img src="https://via.placeholder.com/800x400" class="card-img-top" alt="Project Screenshot">
-                <div class="card-body p-4">
-                    <h5 class="mb-3">Project Description</h5>
-                    <p>@ViewData["ProjectDescription"]</p>
-                    
-                    <h5 class="mb-3 mt-4">Technologies Used</h5>
-                    <div class="d-flex flex-wrap gap-2 mb-4">
-                        <span class="badge bg-primary">ASP.NET Core</span>
-                        <span class="badge bg-primary">C#</span>
-                        <span class="badge bg-primary">Entity Framework</span>
-                        <span class="badge bg-primary">Bootstrap</span>
-                        <span class="badge bg-primary">JavaScript</span>
+            <p class="lead">@Model?.Description</p>
+            
+            @if (!string.IsNullOrEmpty(Model?.DetailedDescription))
+            {
+                <div class="mt-4">
+                    <h3>Project Details</h3>
+                    <p>@Model.DetailedDescription</p>
+                </div>
+            }
+            
+            @if (Model?.Technologies != null && Model.Technologies.Any())
+            {
+                <div class="mt-4">
+                    <h4>Technologies Used</h4>
+                    <div class="mb-3">
+                        @foreach (var tech in Model.Technologies)
+                        {
+                            <span class="badge bg-primary me-2 mb-2">@tech</span>
+                        }
                     </div>
+                </div>
+            }
+            
+            @if (Model?.CompletedDate != null)
+            {
+                <div class="mt-3">
+                    <small class="text-muted">Completed: @Model.CompletedDate.Value.ToString("MMMM yyyy")</small>
+                </div>
+            }
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Project Links</h5>
+                </div>
+                <div class="card-body">
+                    @if (!string.IsNullOrEmpty(Model?.DemoUrl))
+                    {
+                        <a href="@Model.DemoUrl" target="_blank" class="btn btn-success btn-block mb-2 w-100">
+                            <i class="fas fa-external-link-alt me-2"></i>Live Demo
+                        </a>
+                    }
                     
-                    <h5 class="mb-3 mt-4">Key Features</h5>
-                    <ul>
-                        <li>Responsive design for all devices</li>
-                        <li>Secure user authentication and authorization</li>
-                        <li>RESTful API architecture</li>
-                        <li>Comprehensive data visualization</li>
-                        <li>Automated testing and CI/CD pipeline</li>
-                    </ul>
+                    @if (!string.IsNullOrEmpty(Model?.SourceCodeUrl))
+                    {
+                        <a href="@Model.SourceCodeUrl" target="_blank" class="btn btn-dark btn-block mb-2 w-100">
+                            <i class="fab fa-github me-2"></i>Source Code
+                        </a>
+                    }
                     
-                    <div class="mt-4">
-                        <a href="@Url.Action("Index", "Home")#projects" class="btn btn-outline-primary">Back to Projects</a>
-                    </div>
+                    <a href="@Url.Action("Index", "Home")" class="btn btn-outline-primary btn-block w-100">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Home
+                    </a>
                 </div>
             </div>
         </div>

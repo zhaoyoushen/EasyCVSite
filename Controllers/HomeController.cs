@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using PersonalHomepage.Models;
+using PersonalHomepage.Services;
 using System.Collections.Generic;
 
 namespace PersonalHomepage.Controllers;
@@ -8,26 +9,18 @@ namespace PersonalHomepage.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly IConfigurationService _configurationService;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, IConfigurationService configurationService)
     {
         _logger = logger;
+        _configurationService = configurationService;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        // 创建技能列表
-        var skills = new List<Skill>
-        {
-            new Skill { Name = "C#", Proficiency = 90 },
-            new Skill { Name = "ASP.NET Core", Proficiency = 85 },
-            new Skill { Name = "JavaScript", Proficiency = 80 },
-            new Skill { Name = "HTML/CSS", Proficiency = 85 },
-            new Skill { Name = "SQL", Proficiency = 75 },
-            new Skill { Name = "Docker", Proficiency = 70 }
-        };
-
-        return View(skills);
+        var configuration = await _configurationService.GetConfigurationAsync();
+        return View(configuration);
     }
 
     public IActionResult Privacy()
@@ -58,33 +51,89 @@ public class HomeController : Controller
         return View(contactForm);
     }
 
-    public IActionResult ProjectDetails(int id)
+    public async Task<IActionResult> ProjectDetails(int id)
     {
-        // 这里可以根据id获取项目详情
-        // 为了演示，我们返回一个简单的ViewData
-        ViewData["ProjectId"] = id;
+        var configuration = await _configurationService.GetConfigurationAsync();
+        var project = configuration.Projects?.FirstOrDefault(p => p.Id == id);
         
-        switch(id)
+        if (project == null)
         {
-            case 1:
-                ViewData["ProjectName"] = "E-Commerce Platform";
-                ViewData["ProjectDescription"] = "A complete e-commerce solution developed using ASP.NET Core and Entity Framework. This project includes user authentication, product catalog, shopping cart, order processing, and admin dashboard.";
-                break;
-            case 2:
-                ViewData["ProjectName"] = "Task Management System";
-                ViewData["ProjectDescription"] = "A modern task management application based on .NET Core and Angular. Features include task creation, assignment, status tracking, notifications, and reporting.";
-                break;
-            case 3:
-                ViewData["ProjectName"] = "Social Media Analytics Tool";
-                ViewData["ProjectDescription"] = "A social media data analysis platform developed using .NET and various APIs. This tool collects, analyzes, and visualizes social media metrics to help businesses make data-driven decisions.";
-                break;
-            default:
-                return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index));
         }
         
+        return View(project);
+    }
+    
+    // 配置管理相关方法
+    public IActionResult Admin()
+    {
         return View();
     }
     
+    [HttpPost]
+    public async Task<IActionResult> UploadConfiguration(ConfigurationUpload upload)
+    {
+        if (ModelState.IsValid && upload.ConfigFile != null)
+        {
+            var success = await _configurationService.UploadConfigurationAsync(upload.ConfigFile);
+            if (success)
+            {
+                TempData["SuccessMessage"] = "配置文件上传成功！页面内容已更新。";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "配置文件上传失败，请检查文件格式是否正确。";
+            }
+        }
+        else
+        {
+            TempData["ErrorMessage"] = "请选择一个有效的JSON配置文件。";
+        }
+        
+        return RedirectToAction(nameof(Admin));
+    }
+    
+    [HttpGet]
+    public async Task<IActionResult> DownloadConfiguration()
+    {
+        try
+        {
+            var configuration = await _configurationService.GetConfigurationAsync();
+            var json = System.Text.Json.JsonSerializer.Serialize(configuration, new System.Text.Json.JsonSerializerOptions
+            {
+                PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase,
+                WriteIndented = true
+            });
+            
+            var bytes = System.Text.Encoding.UTF8.GetBytes(json);
+            return File(bytes, "application/json", "page-config.json");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error downloading configuration");
+            TempData["ErrorMessage"] = "下载配置文件时发生错误。";
+            return RedirectToAction(nameof(Admin));
+        }
+    }
+    
+    [HttpPost]
+    public async Task<IActionResult> ResetToDefault()
+    {
+        try
+        {
+            var defaultConfig = _configurationService.GetDefaultConfiguration();
+            await _configurationService.SaveConfigurationAsync(defaultConfig);
+            TempData["SuccessMessage"] = "配置已重置为默认设置。";
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error resetting configuration");
+            TempData["ErrorMessage"] = "重置配置时发生错误。";
+        }
+        
+        return RedirectToAction(nameof(Admin));
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
