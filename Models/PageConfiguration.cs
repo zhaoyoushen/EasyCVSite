@@ -7,6 +7,7 @@ namespace PersonalHomepage.Models
         public PersonalInfo? PersonalInfo { get; set; }
         public List<Skill>? Skills { get; set; }
         public List<Project>? Projects { get; set; }
+        public List<Education>? Education { get; set; }
         public ContactInfo? ContactInfo { get; set; }
         public ThemeSettings? Theme { get; set; }
     }
@@ -32,6 +33,19 @@ namespace PersonalHomepage.Models
         public string? DemoUrl { get; set; }
         public string? SourceCodeUrl { get; set; }
         public DateTime? CompletedDate { get; set; }
+    }
+
+    public class Education
+    {
+        public int Id { get; set; }
+        public string? Institution { get; set; }
+        public string? Degree { get; set; }
+        public string? FieldOfStudy { get; set; }
+        public string? Description { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+        public string? Grade { get; set; }
+        public List<string>? Achievements { get; set; }
     }
 
     public class ContactInfo

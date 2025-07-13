@@ -133,6 +133,79 @@
                                     </div>
                                 </div>
                                 
+                                <div class="row mt-4">
+                                    <div class="col-12">
+                                        <h5>Projects</h5>
+                                        <div id="projectsContainer">
+                                            @if (Model.UserProfile?.Projects != null)
+                                            {
+                                                @foreach (var project in Model.UserProfile.Projects)
+                                                {
+                                                    <div class="card mb-3 project-item">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <input type="text" class="form-control mb-2 project-name" value="@project.Name" placeholder="Project Name" />
+                                                                    <textarea class="form-control mb-2 project-description" rows="2" placeholder="Project Description">@project.Description</textarea>
+                                                                    <input type="text" class="form-control mb-2 project-technologies" value="@(project.Technologies != null ? string.Join(", ", project.Technologies) : "")" placeholder="Technologies (comma separated)" />
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <input type="url" class="form-control mb-2 project-demo" value="@project.DemoUrl" placeholder="Demo URL" />
+                                                                    <input type="url" class="form-control mb-2 project-source" value="@project.SourceCodeUrl" placeholder="Source Code URL" />
+                                                                    <input type="date" class="form-control mb-2 project-date" value="@project.CompletedDate?.ToString("yyyy-MM-dd")" />
+                                                                </div>
+                                                            </div>
+                                                            <button type="button" class="btn btn-outline-danger btn-sm remove-project">
+                                                                <i class="fas fa-trash me-2"></i>Remove Project
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                        <button type="button" class="btn btn-outline-primary btn-sm" id="addProject">
+                                            <i class="fas fa-plus me-2"></i>Add Project
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="row mt-4">
+                                    <div class="col-12">
+                                        <h5>Education</h5>
+                                        <div id="educationContainer">
+                                            @if (Model.UserProfile?.Education != null)
+                                            {
+                                                @foreach (var education in Model.UserProfile.Education)
+                                                {
+                                                    <div class="card mb-3 education-item">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <input type="text" class="form-control mb-2 education-institution" value="@education.Institution" placeholder="Institution" />
+                                                                    <input type="text" class="form-control mb-2 education-degree" value="@education.Degree" placeholder="Degree" />
+                                                                    <input type="text" class="form-control mb-2 education-field" value="@education.FieldOfStudy" placeholder="Field of Study" />
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <input type="date" class="form-control mb-2 education-start" value="@education.StartDate?.ToString("yyyy-MM-dd")" placeholder="Start Date" />
+                                                                    <input type="date" class="form-control mb-2 education-end" value="@education.EndDate?.ToString("yyyy-MM-dd")" placeholder="End Date" />
+                                                                    <input type="text" class="form-control mb-2 education-grade" value="@education.Grade" placeholder="Grade/GPA" />
+                                                                </div>
+                                                            </div>
+                                                            <textarea class="form-control mb-2 education-description" rows="2" placeholder="Description">@education.Description</textarea>
+                                                            <button type="button" class="btn btn-outline-danger btn-sm remove-education">
+                                                                <i class="fas fa-trash me-2"></i>Remove Education
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                        <button type="button" class="btn btn-outline-primary btn-sm" id="addEducation">
+                                            <i class="fas fa-plus me-2"></i>Add Education
+                                        </button>
+                                    </div>
+                                </div>
+                                
                                 <div class="mt-4">
                                     <button type="button" class="btn btn-primary" id="saveProfile">
                                         <i class="fas fa-save me-2"></i>Save Profile
@@ -313,6 +386,69 @@
                 $(this).closest('.skill-row').remove();
             });
             
+            // Add project functionality
+            $('#addProject').click(function() {
+                const projectHtml = `
+                    <div class="card mb-3 project-item">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control mb-2 project-name" placeholder="Project Name" />
+                                    <textarea class="form-control mb-2 project-description" rows="2" placeholder="Project Description"></textarea>
+                                    <input type="text" class="form-control mb-2 project-technologies" placeholder="Technologies (comma separated)" />
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="url" class="form-control mb-2 project-demo" placeholder="Demo URL" />
+                                    <input type="url" class="form-control mb-2 project-source" placeholder="Source Code URL" />
+                                    <input type="date" class="form-control mb-2 project-date" />
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-outline-danger btn-sm remove-project">
+                                <i class="fas fa-trash me-2"></i>Remove Project
+                            </button>
+                        </div>
+                    </div>
+                `;
+                $('#projectsContainer').append(projectHtml);
+            });
+            
+            // Remove project functionality
+            $(document).on('click', '.remove-project', function() {
+                $(this).closest('.project-item').remove();
+            });
+            
+            // Add education functionality
+            $('#addEducation').click(function() {
+                const educationHtml = `
+                    <div class="card mb-3 education-item">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control mb-2 education-institution" placeholder="Institution" />
+                                    <input type="text" class="form-control mb-2 education-degree" placeholder="Degree" />
+                                    <input type="text" class="form-control mb-2 education-field" placeholder="Field of Study" />
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="date" class="form-control mb-2 education-start" placeholder="Start Date" />
+                                    <input type="date" class="form-control mb-2 education-end" placeholder="End Date" />
+                                    <input type="text" class="form-control mb-2 education-grade" placeholder="Grade/GPA" />
+                                </div>
+                            </div>
+                            <textarea class="form-control mb-2 education-description" rows="2" placeholder="Description"></textarea>
+                            <button type="button" class="btn btn-outline-danger btn-sm remove-education">
+                                <i class="fas fa-trash me-2"></i>Remove Education
+                            </button>
+                        </div>
+                    </div>
+                `;
+                $('#educationContainer').append(educationHtml);
+            });
+            
+            // Remove education functionality
+            $(document).on('click', '.remove-education', function() {
+                $(this).closest('.education-item').remove();
+            });
+            
             // Theme selection
             $('.select-theme').click(function() {
                 const theme = $(this).data('theme');
@@ -333,6 +469,50 @@
                     }
                 });
                 
+                const projects = [];
+                $('.project-item').each(function() {
+                    const name = $(this).find('.project-name').val();
+                    const description = $(this).find('.project-description').val();
+                    const technologies = $(this).find('.project-technologies').val();
+                    const demoUrl = $(this).find('.project-demo').val();
+                    const sourceCodeUrl = $(this).find('.project-source').val();
+                    const completedDate = $(this).find('.project-date').val();
+                    
+                    if (name) {
+                        projects.push({
+                            name: name,
+                            description: description,
+                            technologies: technologies ? technologies.split(',').map(t => t.trim()) : [],
+                            demoUrl: demoUrl,
+                            sourceCodeUrl: sourceCodeUrl,
+                            completedDate: completedDate ? new Date(completedDate).toISOString() : null
+                        });
+                    }
+                });
+                
+                const education = [];
+                $('.education-item').each(function() {
+                    const institution = $(this).find('.education-institution').val();
+                    const degree = $(this).find('.education-degree').val();
+                    const fieldOfStudy = $(this).find('.education-field').val();
+                    const startDate = $(this).find('.education-start').val();
+                    const endDate = $(this).find('.education-end').val();
+                    const grade = $(this).find('.education-grade').val();
+                    const description = $(this).find('.education-description').val();
+                    
+                    if (institution) {
+                        education.push({
+                            institution: institution,
+                            degree: degree,
+                            fieldOfStudy: fieldOfStudy,
+                            startDate: startDate ? new Date(startDate).toISOString() : null,
+                            endDate: endDate ? new Date(endDate).toISOString() : null,
+                            grade: grade,
+                            description: description
+                        });
+                    }
+                });
+                
                 const config = {
                     personalInfo: {
                         name: $('#fullName').val(),
@@ -346,6 +526,8 @@
                         location: $('#location').val()
                     },
                     skills: skills,
+                    projects: projects,
+                    education: education,
                     theme: {
                         displayStyle: parseInt($('.theme-card.border-primary').data('theme')) || 0
                     }
