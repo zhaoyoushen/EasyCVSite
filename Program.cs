@@ -2,6 +2,7 @@ using PersonalHomepage.Services;
 using PersonalHomepage.Data;
 using PersonalHomepage.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -47,6 +48,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IConfigurationService, ConfigurationService>();
 builder.Services.AddScoped<IUserConfigurationService, UserConfigurationService>();
+builder.Services.AddTransient<IEmailSender, EmailService>();
 
 var app = builder.Build();
 

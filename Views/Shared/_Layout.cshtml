@@ -24,21 +24,30 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="#skills">Skills</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="#projects">Projects</a>
-                        </li>
+                        @if (ViewBag.HasSkills == true)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="#skills">Skills</a>
+                            </li>
+                        }
+                        @if (ViewBag.HasProjects == true)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="#projects">Projects</a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contact">Contact Me</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Admin"><i class="bi bi-gear"></i> Admin</a>
-                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Admin"><i class="bi bi-gear"></i> Admin</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

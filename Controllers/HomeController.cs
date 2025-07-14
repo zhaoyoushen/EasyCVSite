@@ -26,7 +26,7 @@ namespace PersonalHomepage.Controllers
             _userManager = userManager;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
     {
         // 如果用户已登录，重定向到仪表板
         if (User.Identity?.IsAuthenticated == true)
@@ -37,6 +37,8 @@ namespace PersonalHomepage.Controllers
         // 显示欢迎页面
         return View();
     }
+    
+
     
     [Route("u/{url}")]
     public async Task<IActionResult> Public(string url)
@@ -52,6 +54,9 @@ namespace PersonalHomepage.Controllers
             // 增加访问计数
             await _userConfigurationService.IncrementViewCountAsync(url);
             
+            // 为用户自己的页面设置导航栏显示逻辑
+            ViewBag.HasSkills = configuration?.Skills?.Any() == true;
+            ViewBag.HasProjects = configuration?.Projects?.Any() == true;
             ViewBag.IsPublicView = true;
             ViewBag.CustomUrl = url;
             return View("PublicProfile", configuration);
