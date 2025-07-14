@@ -82,8 +82,31 @@
                                             <textarea class="form-control" id="bio" rows="4">@Model.UserProfile.PersonalInfo?.Description</textarea>
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label">Profile Image URL</label>
-                                            <input type="url" class="form-control" id="profileImageUrl" value="@Model.UserProfile.PersonalInfo?.ProfileImageUrl" />
+                                            <label class="form-label">Profile Image</label>
+                                            <div class="d-flex align-items-center gap-3">
+                                                <div class="profile-image-preview">
+                                                    @if (!string.IsNullOrEmpty(Model.UserProfile.PersonalInfo?.ProfileImageUrl))
+                                                    {
+                                                        <img id="profileImagePreview" src="@Model.UserProfile.PersonalInfo.ProfileImageUrl" alt="Profile Image" class="rounded-circle" style="width: 80px; height: 80px; object-fit: cover;" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <div id="profileImagePreview" class="rounded-circle bg-light d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                                                            <i class="fas fa-user fa-2x text-muted"></i>
+                                                        </div>
+                                                    }
+                                                </div>
+                                                <div class="flex-grow-1">
+                                                    <input type="file" class="form-control mb-2" id="profileImageFile" accept="image/*" />
+                                                    <input type="hidden" id="profileImageUrl" value="@Model.UserProfile.PersonalInfo?.ProfileImageUrl" />
+                                                    @if (!string.IsNullOrEmpty(Model.UserProfile.PersonalInfo?.ProfileImageUrl))
+                                                    {
+                                                        <button type="button" class="btn btn-outline-danger btn-sm" id="deleteProfileImage">
+                                                            <i class="fas fa-trash me-1"></i>Delete Image
+                                                        </button>
+                                                    }
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label">Welcome Message</label>
@@ -833,6 +856,97 @@
                         $spinner.addClass('d-none');
                     }
                 });
+            });
+            
+            // Profile image file upload handling
+            $('#profileImageFile').change(function() {
+                const file = this.files[0];
+                console.log('File selected:', file);
+                if (file) {
+                    console.log('File details:', {
+                        name: file.name,
+                        size: file.size,
+                        type: file.type
+                    });
+                    // Validate file type
+                    if (!file.type.startsWith('image/')) {
+                        alert('Please select a valid image file.');
+                        this.value = '';
+                        return;
+                    }
+                    
+                    // Validate file size (5MB max)
+                    if (file.size > 5 * 1024 * 1024) {
+                        alert('File size must be less than 5MB.');
+                        this.value = '';
+                        return;
+                    }
+                    
+                    // Show preview
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const preview = $('#profileImagePreview');
+                        if (preview.is('img')) {
+                            preview.attr('src', e.target.result);
+                        } else {
+                            preview.replaceWith('<img id="profileImagePreview" src="' + e.target.result + '" alt="Profile Image" class="rounded-circle" style="width: 80px; height: 80px; object-fit: cover;" />');
+                        }
+                    };
+                    reader.readAsDataURL(file);
+                    
+                    // Upload file
+                    const formData = new FormData();
+                    formData.append('profileImage', file);
+                    console.log('FormData created, sending AJAX request...');
+                    
+                    $.ajax({
+                        url: '@Url.Action("UploadProfileImage", "Dashboard")',
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function(result) {
+                            if (result.success) {
+                                $('#profileImageUrl').val(result.imageUrl);
+                                // Show delete button if not already visible
+                                if ($('#deleteProfileImage').length === 0) {
+                                    $('.flex-grow-1').append('<button type="button" class="btn btn-outline-danger btn-sm" id="deleteProfileImage"><i class="fas fa-trash me-1"></i>Delete Image</button>');
+                                }
+                            } else {
+                                alert('Error uploading image: ' + result.message);
+                            }
+                        },
+                        error: function() {
+                            alert('Error uploading image. Please try again.');
+                        }
+                    });
+                }
+            });
+            
+            // Delete profile image
+            $(document).on('click', '#deleteProfileImage', function() {
+                if (confirm('Are you sure you want to delete your profile image?')) {
+                    $.ajax({
+                        url: '@Url.Action("DeleteProfileImage", "Dashboard")',
+                        type: 'POST',
+                        success: function(result) {
+                            if (result.success) {
+                                $('#profileImageUrl').val('');
+                                const preview = $('#profileImagePreview');
+                                if (preview.is('img')) {
+                                    preview.replaceWith('<div id="profileImagePreview" class="rounded-circle bg-light d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;"><i class="fas fa-user fa-2x text-muted"></i></div>');
+                                }
+                                $('#deleteProfileImage').remove();
+                                $('#profileImageFile').val('');
+                            } else {
+                                alert('Error deleting image: ' + result.message);
+                            }
+                        },
+                        error: function() {
+                            alert('Error deleting image. Please try again.');
+                        }
+                    });
+                }
             });
             
             // Clear URL check result when input changes

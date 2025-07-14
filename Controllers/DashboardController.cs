@@ -206,6 +206,109 @@ namespace PersonalHomepage.Controllers
         }
 
         [HttpPost]
+        public async Task<IActionResult> UploadProfileImage(IFormFile profileImage)
+        {
+            try
+            {
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    return Json(new { success = false, message = "User not found" });
+                }
+
+                _logger.LogInformation($"Received file upload request. ProfileImage is null: {profileImage == null}");
+                if (profileImage != null)
+                {
+                    _logger.LogInformation($"File details - Name: {profileImage.FileName}, Size: {profileImage.Length}, ContentType: {profileImage.ContentType}");
+                }
+
+                if (profileImage == null || profileImage.Length == 0)
+                {
+                    return Json(new { success = false, message = "No file selected" });
+                }
+
+                // 验证文件类型
+                var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".webp" };
+                var fileExtension = Path.GetExtension(profileImage.FileName).ToLowerInvariant();
+                if (!allowedExtensions.Contains(fileExtension))
+                {
+                    return Json(new { success = false, message = "Invalid file type. Only JPG, PNG, GIF, and WebP files are allowed." });
+                }
+
+                // 验证文件大小 (最大5MB)
+                if (profileImage.Length > 5 * 1024 * 1024)
+                {
+                    return Json(new { success = false, message = "File size too large. Maximum size is 5MB." });
+                }
+
+                // 创建用户专属文件夹
+                var uploadsPath = Path.Combine(_environment.WebRootPath, "uploads", "profiles", user.Id);
+                if (!Directory.Exists(uploadsPath))
+                {
+                    Directory.CreateDirectory(uploadsPath);
+                }
+
+                // 删除旧的头像文件
+                var existingFiles = Directory.GetFiles(uploadsPath, "profile.*");
+                foreach (var file in existingFiles)
+                {
+                    System.IO.File.Delete(file);
+                }
+
+                // 生成新文件名
+                var fileName = $"profile{fileExtension}";
+                var filePath = Path.Combine(uploadsPath, fileName);
+
+                // 保存文件
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await profileImage.CopyToAsync(stream);
+                }
+
+                // 生成访问URL
+                var imageUrl = $"/uploads/profiles/{user.Id}/{fileName}";
+
+                return Json(new { success = true, imageUrl, message = "Profile image uploaded successfully" });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error uploading profile image");
+                return Json(new { success = false, message = "Error uploading image" });
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteProfileImage()
+        {
+            try
+            {
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    return Json(new { success = false, message = "User not found" });
+                }
+
+                // 删除用户头像文件
+                var uploadsPath = Path.Combine(_environment.WebRootPath, "uploads", "profiles", user.Id);
+                if (Directory.Exists(uploadsPath))
+                {
+                    var existingFiles = Directory.GetFiles(uploadsPath, "profile.*");
+                    foreach (var file in existingFiles)
+                    {
+                        System.IO.File.Delete(file);
+                    }
+                }
+
+                return Json(new { success = true, message = "Profile image deleted successfully" });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error checking URL availability");
+                return Json(new { available = false });
+            }
+        }
+
+        [HttpPost]
         public async Task<IActionResult> UpdatePublishSettings(bool isPublished, string customUrl)
         {
             try
