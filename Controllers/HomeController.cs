@@ -79,6 +79,13 @@ namespace PersonalHomepage.Controllers
         return View();
     }
     
+    // Health check endpoint for Docker
+    [HttpGet("/health")]
+    public IActionResult Health()
+    {
+        return Ok(new { status = "healthy", timestamp = DateTime.UtcNow });
+    }
+    
     [HttpPost]
     public IActionResult Contact(ContactForm contactForm)
     {

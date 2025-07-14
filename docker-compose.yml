@@ -1,31 +1,59 @@
-version: '3.8'
-
 services:
+  # SQL Server Database
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: personalhomepage-sqlserver
     environment:
       - ACCEPT_EULA=Y
-      - SA_PASSWORD=YourStrong@Passw0rd
+      - SA_PASSWORD=YourStrong@Passw0rd123
       - MSSQL_PID=Express
     ports:
       - "15433:1433"
     volumes:
       - sqlserver_data:/var/opt/mssql
-    restart: always
+      - ./init-db:/docker-entrypoint-initdb.d
+    networks:
+      - personalhomepage-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z localhost 1433 || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 40s
 
+  # Personal Homepage Web Application
   webapp:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: personalhomepage-webapp
     ports:
-      - "8080:80"
+      - "8080:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=PersonalHomepageDB;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=true;MultipleActiveResultSets=true
+      - ASPNETCORE_URLS=http://+:8080
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=PersonalHomepageDB;User Id=sa;Password=YourStrong@Passw0rd123;TrustServerCertificate=true;MultipleActiveResultSets=true;Encrypt=false
+    volumes:
+      - webapp_uploads:/app/wwwroot/uploads
     depends_on:
       - sqlserver
-    restart: always
+    networks:
+      - personalhomepage-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health", "||", "exit", "1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
 
 volumes:
   sqlserver_data:
+    driver: local
+  webapp_uploads:
+    driver: local
+
+networks:
+  personalhomepage-network:
+    driver: bridge
