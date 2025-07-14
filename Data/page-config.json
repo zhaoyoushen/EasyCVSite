@@ -1,16 +1,16 @@
 {
   "personalInfo": {
-    "name": "\u5F20\u4F1F",
-    "title": "\u5168\u6808\u5F00\u53D1\u5DE5\u7A0B\u5E08 \u0026 \u6280\u672F\u67B6\u6784\u5E08",
-    "description": "\u62E5\u67098\u5E74\u8F6F\u4EF6\u5F00\u53D1\u7ECF\u9A8C\uFF0C\u4E13\u6CE8\u4E8E.NET\u751F\u6001\u7CFB\u7EDF\u3001\u4E91\u539F\u751F\u67B6\u6784\u548C\u524D\u7AEF\u6280\u672F\u3002\u70ED\u8877\u4E8E\u6280\u672F\u521B\u65B0\uFF0C\u81F4\u529B\u4E8E\u6784\u5EFA\u9AD8\u6027\u80FD\u3001\u53EF\u6269\u5C55\u7684\u4F01\u4E1A\u7EA7\u5E94\u7528\u7CFB\u7EDF\u3002",
-    "profileImageUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400\u0026h=400\u0026fit=crop\u0026crop=face",
-    "welcomeMessage": "\u6B22\u8FCE\u6765\u5230\u6211\u7684\u4E2A\u4EBA\u4E3B\u9875",
+    "name": "Zhang Wei",
+    "title": "Full-Stack Developer & Technical Architect",
+    "description": "8 years of software development experience, specializing in .NET ecosystem, cloud-native architecture, and frontend technologies. Passionate about technical innovation and committed to building high-performance, scalable enterprise applications.",
+    "profileImageUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
+    "welcomeMessage": "Welcome to my personal homepage",
     "highlights": [
-      "\uD83D\uDE80 8\u5E74\u5168\u6808\u5F00\u53D1\u7ECF\u9A8C\uFF0C\u7CBE\u901A.NET Core\u3001React\u3001Vue.js\u7B49\u6280\u672F\u6808",
-      "\u2601\uFE0F \u4E91\u539F\u751F\u67B6\u6784\u4E13\u5BB6\uFF0C\u719F\u7EC3\u4F7F\u7528Docker\u3001Kubernetes\u3001Azure\u7B49\u4E91\u5E73\u53F0",
-      "\uD83D\uDCCA \u6570\u636E\u9A71\u52A8\u51B3\u7B56\uFF0C\u64C5\u957F\u5927\u6570\u636E\u5206\u6790\u548C\u673A\u5668\u5B66\u4E60\u5E94\u7528",
-      "\uD83C\uDFAF \u654F\u6377\u5F00\u53D1\u5B9E\u8DF5\u8005\uFF0C\u5177\u5907\u4E30\u5BCC\u7684\u56E2\u961F\u534F\u4F5C\u548C\u9879\u76EE\u7BA1\u7406\u7ECF\u9A8C",
-      "\uD83D\uDCA1 \u5F00\u6E90\u8D21\u732E\u8005\uFF0C\u5728GitHub\u4E0A\u7EF4\u62A4\u591A\u4E2A\u53D7\u6B22\u8FCE\u7684\u5F00\u6E90\u9879\u76EE"
+      "🚀 8 years of full-stack development experience, proficient in .NET Core, React, Vue.js and other technology stacks",
+      "☁️ Cloud-native architecture expert, skilled in Docker, Kubernetes, Azure and other cloud platforms",
+      "📊 Data-driven decision making, expertise in big data analysis and machine learning applications",
+      "🎯 Agile development practitioner with rich experience in team collaboration and project management",
+      "💡 Open source contributor, maintaining multiple popular open source projects on GitHub"
     ]
   },
   "skills": [
@@ -67,21 +67,21 @@
       "proficiency": 72
     },
     {
-      "name": "\u5FAE\u670D\u52A1\u67B6\u6784",
+      "name": "Microservices Architecture",
       "proficiency": 88
     },
     {
-      "name": "\u7CFB\u7EDF\u8BBE\u8BA1",
+      "name": "System Design",
       "proficiency": 85
     }
   ],
   "projects": [
     {
       "id": 1,
-      "name": "\u667A\u80FD\u7535\u5546\u5E73\u53F0",
-      "description": "\u57FA\u4E8E\u5FAE\u670D\u52A1\u67B6\u6784\u7684\u5927\u578B\u7535\u5546\u5E73\u53F0\uFF0C\u652F\u6301\u5343\u4E07\u7EA7\u7528\u6237\u5E76\u53D1\u8BBF\u95EE\uFF0C\u96C6\u6210AI\u63A8\u8350\u7CFB\u7EDF\u3002",
-      "imageUrl": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600\u0026h=400\u0026fit=crop",
-      "detailedDescription": "\u8FD9\u662F\u4E00\u4E2A\u5B8C\u6574\u7684\u4F01\u4E1A\u7EA7\u7535\u5546\u89E3\u51B3\u65B9\u6848\uFF0C\u91C7\u7528\u5FAE\u670D\u52A1\u67B6\u6784\u8BBE\u8BA1\uFF0C\u5305\u542B\u7528\u6237\u7BA1\u7406\u3001\u5546\u54C1\u76EE\u5F55\u3001\u8BA2\u5355\u5904\u7406\u3001\u652F\u4ED8\u7CFB\u7EDF\u3001\u5E93\u5B58\u7BA1\u7406\u3001\u7269\u6D41\u8DDF\u8E2A\u7B49\u6838\u5FC3\u6A21\u5757\u3002\u7CFB\u7EDF\u4F7F\u7528.NET Core\u4F5C\u4E3A\u540E\u7AEF\u6846\u67B6\uFF0CReact\u4F5C\u4E3A\u524D\u7AEF\u6280\u672F\u6808\uFF0C\u652F\u6301\u9AD8\u5E76\u53D1\u8BBF\u95EE\u548C\u5F39\u6027\u6269\u5C55\u3002\u96C6\u6210\u4E86\u673A\u5668\u5B66\u4E60\u63A8\u8350\u7B97\u6CD5\uFF0C\u80FD\u591F\u4E3A\u7528\u6237\u63D0\u4F9B\u4E2A\u6027\u5316\u7684\u5546\u54C1\u63A8\u8350\u670D\u52A1\u3002",
+      "name": "Smart E-commerce Platform",
+      "description": "Large-scale e-commerce platform based on microservices architecture, supporting millions of concurrent users with integrated AI recommendation system.",
+      "imageUrl": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop",
+      "detailedDescription": "This is a complete enterprise-level e-commerce solution designed with microservices architecture, including core modules such as user management, product catalog, order processing, payment system, inventory management, and logistics tracking. The system uses .NET Core as the backend framework and React as the frontend technology stack, supporting high concurrent access and elastic scaling. Integrated machine learning recommendation algorithms to provide users with personalized product recommendation services.",
       "technologies": [
         "ASP.NET Core",
         "React.js",
@@ -100,10 +100,10 @@
     },
     {
       "id": 2,
-      "name": "\u4F01\u4E1A\u7EA7\u9879\u76EE\u7BA1\u7406\u7CFB\u7EDF",
-      "description": "\u73B0\u4EE3\u5316\u7684\u9879\u76EE\u7BA1\u7406\u5E73\u53F0\uFF0C\u652F\u6301\u654F\u6377\u5F00\u53D1\u6D41\u7A0B\uFF0C\u96C6\u6210CI/CD\u7BA1\u9053\u548C\u5B9E\u65F6\u534F\u4F5C\u529F\u80FD\u3002",
-      "imageUrl": "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600\u0026h=400\u0026fit=crop",
-      "detailedDescription": "\u4E00\u4E2A\u529F\u80FD\u5B8C\u6574\u7684\u4F01\u4E1A\u7EA7\u9879\u76EE\u7BA1\u7406\u7CFB\u7EDF\uFF0C\u652F\u6301\u654F\u6377\u5F00\u53D1\u65B9\u6CD5\u8BBA\uFF0C\u5305\u62EC\u9700\u6C42\u7BA1\u7406\u3001\u4EFB\u52A1\u5206\u914D\u3001\u8FDB\u5EA6\u8DDF\u8E2A\u3001\u56E2\u961F\u534F\u4F5C\u3001\u6587\u6863\u7BA1\u7406\u7B49\u529F\u80FD\u3002\u7CFB\u7EDF\u91C7\u7528\u524D\u540E\u7AEF\u5206\u79BB\u67B6\u6784\uFF0C\u540E\u7AEF\u4F7F\u7528.NET Core Web API\uFF0C\u524D\u7AEF\u4F7F\u7528Vue.js\u6784\u5EFA\u3002\u96C6\u6210\u4E86GitLab CI/CD\uFF0C\u652F\u6301\u81EA\u52A8\u5316\u90E8\u7F72\u548C\u6D4B\u8BD5\u3002\u63D0\u4F9B\u4E30\u5BCC\u7684\u62A5\u8868\u548C\u6570\u636E\u5206\u6790\u529F\u80FD\uFF0C\u5E2E\u52A9\u9879\u76EE\u7ECF\u7406\u505A\u51FA\u6570\u636E\u9A71\u52A8\u7684\u51B3\u7B56\u3002",
+      "name": "Enterprise Project Management System",
+      "description": "Modern project management platform supporting agile development workflows, integrated CI/CD pipelines and real-time collaboration features.",
+      "imageUrl": "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&h=400&fit=crop",
+      "detailedDescription": "A fully-featured enterprise project management system supporting agile development methodologies, including requirements management, task assignment, progress tracking, team collaboration, and document management. The system adopts a front-end and back-end separation architecture, using .NET Core Web API for the backend and Vue.js for the frontend. Integrated with GitLab CI/CD, supporting automated deployment and testing. Provides rich reporting and data analysis capabilities to help project managers make data-driven decisions.",
       "technologies": [
         ".NET Core Web API",
         "Vue.js",
@@ -122,10 +122,10 @@
     },
     {
       "id": 3,
-      "name": "\u5B9E\u65F6\u6570\u636E\u5206\u6790\u5E73\u53F0",
-      "description": "\u5927\u6570\u636E\u5B9E\u65F6\u5904\u7406\u548C\u53EF\u89C6\u5316\u5E73\u53F0\uFF0C\u652F\u6301\u591A\u6570\u636E\u6E90\u63A5\u5165\u548C\u81EA\u5B9A\u4E49\u4EEA\u8868\u677F\u3002",
-      "imageUrl": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600\u0026h=400\u0026fit=crop",
-      "detailedDescription": "\u4E00\u4E2A\u5F3A\u5927\u7684\u5B9E\u65F6\u6570\u636E\u5206\u6790\u548C\u53EF\u89C6\u5316\u5E73\u53F0\uFF0C\u80FD\u591F\u5904\u7406\u6765\u81EA\u591A\u4E2A\u6570\u636E\u6E90\u7684\u6D77\u91CF\u6570\u636E\u6D41\u3002\u7CFB\u7EDF\u91C7\u7528\u4E8B\u4EF6\u9A71\u52A8\u67B6\u6784\uFF0C\u4F7F\u7528Apache Kafka\u8FDB\u884C\u6D88\u606F\u961F\u5217\u5904\u7406\uFF0CClickHouse\u4F5C\u4E3A\u65F6\u5E8F\u6570\u636E\u5E93\uFF0C\u652F\u6301\u6BEB\u79D2\u7EA7\u7684\u6570\u636E\u67E5\u8BE2\u54CD\u5E94\u3002\u524D\u7AEF\u63D0\u4F9B\u62D6\u62FD\u5F0F\u4EEA\u8868\u677F\u8BBE\u8BA1\u5668\uFF0C\u7528\u6237\u53EF\u4EE5\u81EA\u5B9A\u4E49\u5404\u79CD\u56FE\u8868\u548C\u62A5\u8868\u3002\u96C6\u6210\u4E86\u673A\u5668\u5B66\u4E60\u7B97\u6CD5\uFF0C\u652F\u6301\u5F02\u5E38\u68C0\u6D4B\u548C\u8D8B\u52BF\u9884\u6D4B\u3002",
+      "name": "Real-time Data Analytics Platform",
+      "description": "Big data real-time processing and visualization platform, supporting multi-data source integration and custom dashboards.",
+      "imageUrl": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
+      "detailedDescription": "A powerful real-time data analysis and visualization platform capable of processing massive data streams from multiple data sources. The system adopts an event-driven architecture, uses Apache Kafka for message queue processing, and ClickHouse as a time-series database, supporting millisecond-level data query response. The frontend provides a drag-and-drop dashboard designer where users can customize various charts and reports. Integrated machine learning algorithms supporting anomaly detection and trend prediction.",
       "technologies": [
         ".NET Core",
         "Apache Kafka",
@@ -144,10 +144,10 @@
     },
     {
       "id": 4,
-      "name": "\u667A\u80FD\u5BA2\u670D\u673A\u5668\u4EBA",
-      "description": "\u57FA\u4E8E\u81EA\u7136\u8BED\u8A00\u5904\u7406\u7684\u667A\u80FD\u5BA2\u670D\u7CFB\u7EDF\uFF0C\u652F\u6301\u591A\u8F6E\u5BF9\u8BDD\u548C\u77E5\u8BC6\u5E93\u7BA1\u7406\u3002",
-      "imageUrl": "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=600\u0026h=400\u0026fit=crop",
-      "detailedDescription": "\u4E00\u4E2A\u96C6\u6210\u4E86\u81EA\u7136\u8BED\u8A00\u5904\u7406\u6280\u672F\u7684\u667A\u80FD\u5BA2\u670D\u673A\u5668\u4EBA\u7CFB\u7EDF\uFF0C\u80FD\u591F\u7406\u89E3\u7528\u6237\u610F\u56FE\u5E76\u63D0\u4F9B\u51C6\u786E\u7684\u56DE\u7B54\u3002\u7CFB\u7EDF\u4F7F\u7528BERT\u6A21\u578B\u8FDB\u884C\u8BED\u4E49\u7406\u89E3\uFF0C\u652F\u6301\u591A\u8F6E\u5BF9\u8BDD\u548C\u4E0A\u4E0B\u6587\u8BB0\u5FC6\u3002\u5305\u542B\u77E5\u8BC6\u5E93\u7BA1\u7406\u3001\u5BF9\u8BDD\u6D41\u8BBE\u8BA1\u3001\u5BA2\u670D\u5DE5\u5355\u7CFB\u7EDF\u7B49\u529F\u80FD\u3002\u652F\u6301\u591A\u6E20\u9053\u63A5\u5165\uFF0C\u5305\u62EC\u7F51\u9875\u804A\u5929\u3001\u5FAE\u4FE1\u3001\u9489\u9489\u7B49\u5E73\u53F0\u3002",
+      "name": "Smart Customer Service Bot",
+      "description": "Intelligent customer service system based on natural language processing, supporting multi-turn conversations and knowledge base management.",
+      "imageUrl": "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=600&h=400&fit=crop",
+      "detailedDescription": "An intelligent customer service bot system integrated with natural language processing technology, capable of understanding user intent and providing accurate responses. The system uses BERT models for semantic understanding, supporting multi-turn conversations and context memory. Includes knowledge base management, conversation flow design, customer service ticketing system and other functions. Supports multi-channel integration, including web chat, WeChat, DingTalk and other platforms.",
       "technologies": [
         "ASP.NET Core",
         "Python Flask",
@@ -156,8 +156,8 @@
         "MongoDB",
         "Elasticsearch",
         "WebSocket",
-        "\u5FAE\u4FE1API",
-        "\u9489\u9489API",
+        "WeChat API",
+        "DingTalk API",
         "Docker"
       ],
       "demoUrl": "https://demo-chatbot.example.com",
@@ -166,10 +166,10 @@
     },
     {
       "id": 5,
-      "name": "\u533A\u5757\u94FE\u6295\u7968\u7CFB\u7EDF",
-      "description": "\u57FA\u4E8E\u4EE5\u592A\u574A\u7684\u53BB\u4E2D\u5FC3\u5316\u6295\u7968\u5E73\u53F0\uFF0C\u786E\u4FDD\u6295\u7968\u8FC7\u7A0B\u7684\u900F\u660E\u6027\u548C\u4E0D\u53EF\u7BE1\u6539\u6027\u3002",
-      "imageUrl": "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=600\u0026h=400\u0026fit=crop",
-      "detailedDescription": "\u4E00\u4E2A\u57FA\u4E8E\u533A\u5757\u94FE\u6280\u672F\u7684\u53BB\u4E2D\u5FC3\u5316\u6295\u7968\u7CFB\u7EDF\uFF0C\u4F7F\u7528\u667A\u80FD\u5408\u7EA6\u786E\u4FDD\u6295\u7968\u8FC7\u7A0B\u7684\u900F\u660E\u6027\u548C\u4E0D\u53EF\u7BE1\u6539\u6027\u3002\u7CFB\u7EDF\u652F\u6301\u591A\u79CD\u6295\u7968\u7C7B\u578B\uFF0C\u5305\u62EC\u5355\u9009\u3001\u591A\u9009\u3001\u6392\u5E8F\u6295\u7968\u7B49\u3002\u63D0\u4F9B\u5B8C\u6574\u7684\u6295\u7968\u751F\u547D\u5468\u671F\u7BA1\u7406\uFF0C\u4ECE\u6295\u7968\u521B\u5EFA\u3001\u5019\u9009\u4EBA\u7BA1\u7406\u5230\u7ED3\u679C\u7EDF\u8BA1\u3002\u96C6\u6210\u4E86\u6570\u5B57\u8EAB\u4EFD\u9A8C\u8BC1\uFF0C\u786E\u4FDD\u4E00\u4EBA\u4E00\u7968\u7684\u516C\u5E73\u6027\u3002",
+      "name": "Blockchain Voting System",
+      "description": "Decentralized voting platform based on Ethereum, ensuring transparency and immutability of the voting process.",
+      "imageUrl": "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=600&h=400&fit=crop",
+      "detailedDescription": "A decentralized voting system based on blockchain technology, using smart contracts to ensure transparency and immutability of the voting process. The system supports multiple voting types, including single choice, multiple choice, ranked voting, etc. Provides complete voting lifecycle management, from vote creation, candidate management to result statistics. Integrated digital identity verification to ensure the fairness of one person, one vote.",
       "technologies": [
         "Solidity",
         "Web3.js",
@@ -187,47 +187,131 @@
       "completedDate": "2024-04-10T00:00:00"
     }
   ],
+  "workExperiences": [
+    {
+      "id": 1,
+      "company": "Microsoft Corporation",
+      "position": "Senior Software Engineer",
+      "location": "Seattle, WA, USA",
+      "companyWebsite": "https://www.microsoft.com",
+      "companyLogo": "https://images.unsplash.com/photo-1633419461186-7d40a38105ec?w=100&h=100&fit=crop",
+      "description": "Leading development of cloud-native applications and microservices architecture for Azure platform.",
+      "detailedDescription": "As a Senior Software Engineer at Microsoft, I lead the development of cloud-native applications and microservices architecture for the Azure platform. My responsibilities include designing scalable distributed systems, implementing CI/CD pipelines, and mentoring junior developers. I work closely with product managers and architects to deliver high-quality software solutions that serve millions of users worldwide.",
+      "technologies": ["C#", ".NET Core", "Azure", "Kubernetes", "Docker", "React", "TypeScript", "SQL Server"],
+      "responsibilities": [
+        "Design and implement scalable microservices architecture",
+        "Lead code reviews and ensure high code quality standards",
+        "Mentor junior developers and conduct technical interviews",
+        "Collaborate with cross-functional teams on product roadmap",
+        "Optimize system performance and reliability"
+      ],
+      "achievements": [
+        "Improved system performance by 60% through architecture optimization",
+        "Led migration of legacy monolith to microservices, reducing deployment time by 80%",
+        "Received Microsoft Excellence Award for outstanding technical contribution",
+        "Successfully mentored 5 junior engineers who got promoted",
+        "Contributed to open-source .NET ecosystem with 10+ merged PRs"
+      ],
+      "startDate": "2020-01-15T00:00:00",
+      "endDate": null,
+      "isCurrent": true
+    },
+    {
+      "id": 2,
+      "company": "Alibaba Group",
+      "position": "Full-Stack Developer",
+      "location": "Hangzhou, China",
+      "companyWebsite": "https://www.alibaba.com",
+      "companyLogo": "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=100&h=100&fit=crop",
+      "description": "Developed e-commerce platform features and payment systems serving millions of daily active users.",
+      "detailedDescription": "At Alibaba Group, I was responsible for developing and maintaining critical e-commerce platform features and payment systems. I worked on high-traffic applications serving millions of daily active users, focusing on system reliability, performance optimization, and user experience. My role involved both frontend and backend development, as well as database optimization and API design.",
+      "technologies": ["Java", "Spring Boot", "React", "MySQL", "Redis", "Elasticsearch", "Docker", "Kubernetes"],
+      "responsibilities": [
+        "Develop and maintain e-commerce platform core features",
+        "Design and implement RESTful APIs",
+        "Optimize database queries and system performance",
+        "Collaborate with product teams on feature requirements",
+        "Participate in on-call rotation for production support"
+      ],
+      "achievements": [
+        "Reduced page load time by 45% through frontend optimization",
+        "Implemented payment system handling 1M+ transactions daily",
+        "Designed caching strategy that improved API response time by 70%",
+        "Received Outstanding Employee Award for exceptional performance"
+      ],
+      "startDate": "2017-08-01T00:00:00",
+      "endDate": "2019-12-31T00:00:00",
+      "isCurrent": false
+    },
+    {
+      "id": 3,
+      "company": "ByteDance Ltd.",
+      "position": "Software Engineer",
+      "location": "Beijing, China",
+      "companyWebsite": "https://www.bytedance.com",
+      "companyLogo": "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=100&h=100&fit=crop",
+      "description": "Built recommendation algorithms and data processing pipelines for content platforms.",
+      "detailedDescription": "As a Software Engineer at ByteDance, I focused on building recommendation algorithms and data processing pipelines for content platforms. I worked on machine learning models, real-time data processing systems, and A/B testing frameworks. My contributions helped improve user engagement and content discovery across multiple products.",
+      "technologies": ["Python", "TensorFlow", "Apache Spark", "Kafka", "Go", "PostgreSQL", "Redis", "Kubernetes"],
+      "responsibilities": [
+        "Develop machine learning models for content recommendation",
+        "Build real-time data processing pipelines",
+        "Design and implement A/B testing frameworks",
+        "Optimize algorithm performance and accuracy",
+        "Collaborate with data scientists on model deployment"
+      ],
+      "achievements": [
+        "Improved recommendation CTR by 25% through algorithm optimization",
+        "Built data pipeline processing 100TB+ daily data",
+        "Reduced model inference latency by 50%",
+        "Contributed to 3 patent applications in recommendation systems"
+      ],
+      "startDate": "2016-06-01T00:00:00",
+      "endDate": "2017-07-31T00:00:00",
+      "isCurrent": false
+    }
+  ],
   "education": [
     {
       "id": 1,
-      "institution": "\u6E05\u534E\u5927\u5B66",
-      "degree": "\u8BA1\u7B97\u673A\u79D1\u5B66\u4E0E\u6280\u672F\u7855\u58EB",
-      "fieldOfStudy": "\u8F6F\u4EF6\u5DE5\u7A0B\u4E0E\u7CFB\u7EDF\u67B6\u6784",
-      "description": "\u4E13\u6CE8\u4E8E\u5206\u5E03\u5F0F\u7CFB\u7EDF\u3001\u5FAE\u670D\u52A1\u67B6\u6784\u548C\u4E91\u8BA1\u7B97\u6280\u672F\u7814\u7A76\u3002\u7855\u58EB\u8BBA\u6587\u4E3B\u9898\u4E3A\u300A\u57FA\u4E8E\u5BB9\u5668\u5316\u7684\u5FAE\u670D\u52A1\u67B6\u6784\u6027\u80FD\u4F18\u5316\u7814\u7A76\u300B\uFF0C\u83B7\u5F97\u4F18\u79C0\u8BBA\u6587\u5956\u3002",
+      "institution": "Tsinghua University",
+      "degree": "Master of Computer Science and Technology",
+      "fieldOfStudy": "Software Engineering and System Architecture",
+      "description": "Focused on distributed systems, microservices architecture and cloud computing technology research. Master's thesis topic was 'Performance Optimization Research of Container-based Microservices Architecture', which won the Outstanding Thesis Award.",
       "startDate": "2014-09-01T00:00:00",
       "endDate": "2017-07-01T00:00:00",
       "grade": "GPA 3.8/4.0",
       "achievements": [
-        "\u83B7\u5F97\u56FD\u5BB6\u5956\u5B66\u91D1\uFF082015\u5E74\u30012016\u5E74\uFF09",
-        "\u7855\u58EB\u8BBA\u6587\u83B7\u5F97\u4F18\u79C0\u8BBA\u6587\u5956",
-        "\u53C2\u4E0E\u5BFC\u5E08\u4E3B\u6301\u7684\u56FD\u5BB6\u81EA\u7136\u79D1\u5B66\u57FA\u91D1\u9879\u76EE",
-        "\u5728\u56FD\u9645\u4F1A\u8BAEICSE\u53D1\u8868\u5B66\u672F\u8BBA\u65871\u7BC7",
-        "\u62C5\u4EFB\u7814\u7A76\u751F\u4F1A\u6280\u672F\u90E8\u90E8\u957F"
+        "Received National Scholarship (2015, 2016)",
+        "Master's thesis won Outstanding Thesis Award",
+        "Participated in National Natural Science Foundation project led by supervisor",
+        "Published 1 academic paper at international conference ICSE",
+        "Served as Minister of Technology Department of Graduate Student Union"
       ]
     },
     {
       "id": 2,
-      "institution": "\u5317\u4EAC\u7406\u5DE5\u5927\u5B66",
-      "degree": "\u8F6F\u4EF6\u5DE5\u7A0B\u5B66\u58EB",
-      "fieldOfStudy": "\u8F6F\u4EF6\u5F00\u53D1\u4E0E\u9879\u76EE\u7BA1\u7406",
-      "description": "\u7CFB\u7EDF\u5B66\u4E60\u4E86\u8F6F\u4EF6\u5DE5\u7A0B\u7406\u8BBA\u4E0E\u5B9E\u8DF5\uFF0C\u638C\u63E1\u4E86\u5B8C\u6574\u7684\u8F6F\u4EF6\u5F00\u53D1\u751F\u547D\u5468\u671F\u7BA1\u7406\u3002\u79EF\u6781\u53C2\u4E0E\u5404\u7C7B\u7F16\u7A0B\u7ADE\u8D5B\u548C\u5F00\u6E90\u9879\u76EE\uFF0C\u57F9\u517B\u4E86\u624E\u5B9E\u7684\u7F16\u7A0B\u57FA\u7840\u548C\u56E2\u961F\u534F\u4F5C\u80FD\u529B\u3002",
+      "institution": "Beijing Institute of Technology",
+      "degree": "Bachelor of Software Engineering",
+      "fieldOfStudy": "Software Development and Project Management",
+      "description": "Systematically studied software engineering theory and practice, mastered complete software development lifecycle management. Actively participated in various programming competitions and open source projects, cultivating solid programming foundation and team collaboration skills.",
       "startDate": "2010-09-01T00:00:00",
       "endDate": "2014-07-01T00:00:00",
-      "grade": "GPA 3.7/4.0\uFF0C\u4E13\u4E1A\u6392\u540D\u524D10%",
+      "grade": "GPA 3.7/4.0, Top 10% in major",
       "achievements": [
-        "\u83B7\u5F97\u6821\u7EA7\u4F18\u79C0\u6BD5\u4E1A\u751F\u79F0\u53F7",
-        "ACM\u7A0B\u5E8F\u8BBE\u8BA1\u7ADE\u8D5B\u6821\u8D5B\u4E00\u7B49\u5956",
-        "\u5168\u56FD\u5927\u5B66\u751F\u8F6F\u4EF6\u521B\u65B0\u5927\u8D5B\u4E8C\u7B49\u5956",
-        "\u8FDE\u7EED\u4E09\u5E74\u83B7\u5F97\u5B66\u4E1A\u5956\u5B66\u91D1",
-        "\u62C5\u4EFB\u8BA1\u7B97\u673A\u5B66\u9662\u5B66\u751F\u4F1A\u4E3B\u5E2D",
-        "\u7EC4\u7EC7\u5E76\u53C2\u4E0E\u591A\u4E2A\u5F00\u6E90\u9879\u76EE\u5F00\u53D1"
+        "Received Outstanding Graduate title at university level",
+        "First prize in ACM Programming Contest school competition",
+        "Second prize in National College Student Software Innovation Competition",
+        "Received Academic Scholarship for three consecutive years",
+        "Served as President of Computer Science Student Union",
+        "Organized and participated in multiple open source project development"
       ]
     }
   ],
   "contactInfo": {
     "email": "zhysh20047@gmail.com",
-    "phone": "\u002B86 138-0013-8888",
-    "location": "\u5317\u4EAC\u5E02\u6D77\u6DC0\u533A\u4E2D\u5173\u6751\u8F6F\u4EF6\u56ED",
+    "phone": "+86 138-0013-8888",
+    "location": "Zhongguancun Software Park, Haidian District, Beijing",
     "socialLinks": [
       {
         "platform": "GitHub",
@@ -240,12 +324,12 @@
         "icon": "fab fa-linkedin"
       },
       {
-        "platform": "\u5FAE\u535A",
+        "platform": "Weibo",
         "url": "https://weibo.com/zhangwei-tech",
         "icon": "fab fa-weibo"
       },
       {
-        "platform": "\u77E5\u4E4E",
+        "platform": "Zhihu",
         "url": "https://zhihu.com/people/zhangwei-dev",
         "icon": "fab fa-zhihu"
       },
@@ -266,7 +350,7 @@
     "secondaryColor": "#64748b",
     "backgroundColor": "#ffffff",
     "textColor": "#1e293b",
-    "fontFamily": "\u0027Inter\u0027, \u0027Microsoft YaHei\u0027, \u0027Segoe UI\u0027, sans-serif",
+    "fontFamily": "'Inter', 'Microsoft YaHei', 'Segoe UI', sans-serif",
     "displayStyle": 0
   }
 }

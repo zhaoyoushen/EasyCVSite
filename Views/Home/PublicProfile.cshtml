@@ -6,54 +6,81 @@
 
 <div class="container-fluid p-0" id="mainContent">
     <div class="style-@displayStyle">
-        @if (Model.PersonalInfo != null && (!string.IsNullOrEmpty(Model.PersonalInfo.Name) || !string.IsNullOrEmpty(Model.PersonalInfo.Title) || !string.IsNullOrEmpty(Model.PersonalInfo.Description)))
+        @if (Model.PersonalInfo != null)
         {
             <!-- Hero Section -->
-            <div class="hero-section py-5">
+            <div class="py-4 mb-4" id="hero">
                 <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-md-6">
-                            @if (!string.IsNullOrEmpty(Model.PersonalInfo.Name))
-                            {
-                                <h1 class="display-4 fw-bold mb-3">@Model.PersonalInfo.Name</h1>
-                            }
-                            @if (!string.IsNullOrEmpty(Model.PersonalInfo.Title))
-                            {
-                                <h2 class="h4 text-muted mb-4">@Model.PersonalInfo.Title</h2>
-                            }
-                            @if (!string.IsNullOrEmpty(Model.PersonalInfo.Description))
-                            {
-                                <p class="lead mb-4">@Model.PersonalInfo.Description</p>
-                            }
-                            @if (!string.IsNullOrEmpty(Model.ContactInfo.Email))
-                            {
-                                <a href="mailto:@Model.ContactInfo.Email" class="btn btn-primary btn-lg me-3">
-                                    <i class="fas fa-envelope me-2"></i>Contact Me
-                                </a>
-                            }
-                            @if (Model.ContactInfo.SocialLinks != null && Model.ContactInfo.SocialLinks.Any())
-                            {
-                                @foreach (var social in Model.ContactInfo.SocialLinks)
-                                {
-                                    <a href="@social.Url" target="_blank" class="btn btn-outline-secondary me-2">
-                                        <i class="@social.Icon me-1"></i>@social.Platform
-                                    </a>
-                                }
-                            }
-                        </div>
-                        <div class="col-md-6 text-center">
-                            @if (!string.IsNullOrEmpty(Model.PersonalInfo.ProfileImageUrl))
-                            {
-                                <img src="@Model.PersonalInfo.ProfileImageUrl" alt="@Model.PersonalInfo.Name" 
-                                     class="img-fluid rounded-circle shadow-lg profile-image" style="max-width: 300px;">
-                            }
-                            else
-                            {
-                                <div class="profile-placeholder rounded-circle shadow-lg mx-auto" 
-                                     style="width: 300px; height: 300px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center;">
-                                    <i class="fas fa-user text-white" style="font-size: 80px;"></i>
+                    <div class="card shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="row align-items-center">
+                                <div class="col-lg-8">
+                                    <h1 class="h2 fw-bold mb-3">@Model.PersonalInfo.Name</h1>
+                                    @if (!string.IsNullOrEmpty(Model.PersonalInfo.Title))
+                                    {
+                                        <h2 class="h5 text-primary mb-3">@Model.PersonalInfo.Title</h2>
+                                    }
+                                    @if (!string.IsNullOrEmpty(Model.PersonalInfo.Description))
+                                    {
+                                        <p class="mb-3">@Model.PersonalInfo.Description</p>
+                                    }
+                                    @if (!string.IsNullOrEmpty(Model.PersonalInfo.WelcomeMessage))
+                                    {
+                                        <p class="text-muted mb-3">@Model.PersonalInfo.WelcomeMessage</p>
+                                    }
+                                    @if (Model.PersonalInfo.Highlights != null && Model.PersonalInfo.Highlights.Any())
+                                    {
+                                        <div class="mb-3">
+                                            @foreach (var highlight in Model.PersonalInfo.Highlights)
+                                            {
+                                                <span class="badge bg-primary me-2 mb-1">@highlight</span>
+                                            }
+                                        </div>
+                                    }
+                                    
+                                    <!-- Quick Contact -->
+                                    <div class="mt-3">
+                                        @if (Model.ContactInfo != null && !string.IsNullOrEmpty(Model.ContactInfo.Email))
+                                        {
+                                            <a href="mailto:@Model.ContactInfo.Email" class="btn btn-primary me-2 mb-2">
+                                                <i class="fas fa-envelope me-2"></i>Contact Me
+                                            </a>
+                                        }
+                                        @if (Model.ContactInfo != null && !string.IsNullOrEmpty(Model.ContactInfo.Phone))
+                                        {
+                                            <a href="tel:@Model.ContactInfo.Phone" class="btn btn-outline-primary mb-2">
+                                                <i class="fas fa-phone me-2"></i>Phone
+                                            </a>
+                                        }
+                                    </div>
+                                    
+                                    @if (Model.ContactInfo != null && Model.ContactInfo.SocialLinks != null && Model.ContactInfo.SocialLinks.Any())
+                                    {
+                                        <div class="mt-3">
+                                            @foreach (var social in Model.ContactInfo.SocialLinks)
+                                            {
+                                                <a href="@social.Url" target="_blank" class="btn btn-outline-secondary me-1 mb-1" title="@social.Platform">
+                                                    <i class="@social.Icon"></i>
+                                                </a>
+                                            }
+                                        </div>
+                                    }
                                 </div>
-                            }
+                                <div class="col-lg-4 text-center">
+                                    @if (!string.IsNullOrEmpty(Model.PersonalInfo.ProfileImageUrl))
+                                    {
+                                        <img src="@Model.PersonalInfo.ProfileImageUrl" alt="@Model.PersonalInfo.Name" 
+                                             class="img-fluid rounded-circle shadow-sm mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                                    }
+                                    else
+                                    {
+                                        <div class="rounded-circle shadow-sm mx-auto mb-3" 
+                                             style="width: 150px; height: 150px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center;">
+                                            <i class="fas fa-user text-white" style="font-size: 40px;"></i>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -63,137 +90,183 @@
         @if (Model.Skills != null && Model.Skills.Any())
         {
             <!-- Skills Section -->
-            <div class="skills-section py-5 bg-light">
+            <div class="py-4 mb-4" id="skills">
                 <div class="container">
-                    <div class="row">
-                        <div class="col-12 text-center mb-5">
-                            <h2 class="display-5 fw-bold">Skills & Expertise</h2>
-                            <p class="lead text-muted">Technologies and tools I work with</p>
+                    <div class="card shadow-sm">
+                        <div class="card-header">
+                            <h3 class="card-title mb-0">
+                                <i class="fas fa-code text-primary me-2"></i>Skills & Expertise
+                            </h3>
                         </div>
-                    </div>
-                    <div class="row">
-                        @foreach (var skill in Model.Skills)
-                        {
-                            <div class="col-md-4 mb-4">
-                                <div class="card h-100 skill-card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">@skill.Name</h5>
-                                        <div class="progress mb-2">
-                                            <div class="progress-bar" role="progressbar" style="width: @skill.Proficiency%" 
-                                                 aria-valuenow="@skill.Proficiency" aria-valuemin="0" aria-valuemax="100">
-                                                @skill.Proficiency%
+                        <div class="card-body">
+                            <div class="row">
+                                @foreach (var skill in Model.Skills)
+                                {
+                                    <div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+                                        <div class="border rounded p-3 h-100">
+                                            <h6 class="text-center mb-2">@skill.Name</h6>
+                                            <div class="progress mb-2" style="height: 6px;">
+                                                <div class="progress-bar bg-primary" style="width: @skill.Proficiency%"></div>
                                             </div>
+                                            <small class="text-muted text-center d-block">@skill.Proficiency%</small>
                                         </div>
                                     </div>
-                                </div>
+                                }
                             </div>
-                        }
+                        </div>
                     </div>
                 </div>
             </div>
         }
 
+        @if (Model.WorkExperiences != null && Model.WorkExperiences.Any())
+        {
+            <!-- Work Experience Section -->
+            <div class="py-4 mb-4" id="work">
+                <div class="container">
+                    <div class="card shadow-sm">
+                        <div class="card-header">
+                            <h3 class="card-title mb-0">
+                                <i class="fas fa-briefcase text-primary me-2"></i>Work Experience
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                @foreach (var work in Model.WorkExperiences)
+                                {
+                                    <div class="col-lg-6 mb-3">
+                                        <div class="border rounded p-3 h-100 work-card" data-bs-toggle="modal" data-bs-target="#workModal@(work.Id)" style="cursor: pointer; transition: all 0.3s ease;">
+                                            <div class="d-flex align-items-start">
+                                                @if (!string.IsNullOrEmpty(work.CompanyLogo))
+                                                {
+                                                    <img src="@work.CompanyLogo" alt="@work.Company" class="me-3 rounded" style="width: 50px; height: 50px; object-fit: cover;">
+                                                }
+                                                else
+                                                {
+                                                    <div class="me-3 rounded d-flex align-items-center justify-content-center" style="width: 50px; height: 50px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                                        <i class="fas fa-building text-white"></i>
+                                                    </div>
+                                                }
+                                                <div class="flex-grow-1">
+                                                    <h6 class="mb-1">@work.Position</h6>
+                                                    <p class="text-primary mb-1">@work.Company</p>
+                                                    <p class="text-muted small mb-2">
+                                                        <i class="fas fa-calendar me-1"></i>
+                                                        @work.StartDate?.ToString("MMM yyyy") - 
+                                        @(work.IsCurrent ? "Present" : work.EndDate?.ToString("MMM yyyy"))
+                                                        @if (!string.IsNullOrEmpty(work.Location))
+                                                        {
+                                                            <span class="ms-2"><i class="fas fa-map-marker-alt me-1"></i>@work.Location</span>
+                                                        }
+                                                    </p>
+                                                    <p class="small mb-2">@work.Description</p>
+                                                    @if (work.Technologies != null && work.Technologies.Any())
+                                                    {
+                                                        <div class="mb-2">
+                                                            @foreach (var tech in work.Technologies.Take(3))
+                                                            {
+                                                                <span class="badge bg-primary me-1 mb-1">@tech</span>
+                                                            }
+                                                            @if (work.Technologies.Count > 3)
+                                                            {
+                                                                <span class="badge bg-secondary">+@(work.Technologies.Count - 3)</span>
+                                                            }
+                                                        </div>
+                                                    }
+                                                    <small class="text-muted"><i class="fas fa-info-circle me-1"></i>Click for details</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        
+        @* Keep Projects section for backward compatibility *@
         @if (Model.Projects != null && Model.Projects.Any())
         {
             <!-- Projects Section -->
-            <div class="projects-section py-5">
+            <div class="py-4 mb-4" id="projects">
                 <div class="container">
-                    <div class="row">
-                        <div class="col-12 text-center mb-5">
-                            <h2 class="display-5 fw-bold">Featured Projects</h2>
-                            <p class="lead text-muted">Some of my recent work</p>
+                    <div class="card shadow-sm">
+                        <div class="card-header">
+                            <h3 class="card-title mb-0">
+                                <i class="fas fa-project-diagram text-primary me-2"></i>Projects
+                            </h3>
                         </div>
-                    </div>
-                    <div class="row">
-                        @foreach (var project in Model.Projects)
-                        {
-                            <div class="col-md-6 col-lg-4 mb-4">
-                                <div class="card h-100 project-card">
-                                    @if (!string.IsNullOrEmpty(project.ImageUrl))
-                                    {
-                                        <img src="@project.ImageUrl" class="card-img-top" alt="@project.Name" style="height: 200px; object-fit: cover;">
-                                    }
-                                    <div class="card-body d-flex flex-column">
-                                        <h5 class="card-title">@project.Name</h5>
-                                        <p class="card-text flex-grow-1">@project.Description</p>
-                                        @if (!string.IsNullOrEmpty(project.DemoUrl))
-                                        {
-                                            <a href="@project.DemoUrl" target="_blank" class="btn btn-primary mt-auto">
-                                                <i class="fas fa-external-link-alt me-2"></i>View Project
-                                            </a>
-                                        }
+                        <div class="card-body">
+                            <div class="row">
+                                @foreach (var project in Model.Projects)
+                                {
+                                    <div class="col-lg-4 col-md-6 mb-3">
+                                        <div class="border rounded p-3 h-100 project-card" data-bs-toggle="modal" data-bs-target="#projectModal@(project.Id)" style="cursor: pointer; transition: all 0.3s ease;">
+                                            @if (!string.IsNullOrEmpty(project.ImageUrl))
+                                            {
+                                                <img src="@project.ImageUrl" class="img-fluid rounded mb-3" alt="@project.Name" style="height: 150px; width: 100%; object-fit: cover;">
+                                            }
+                                            <h6 class="mb-2">@project.Name</h6>
+                                            <p class="small text-muted mb-2">@project.Description</p>
+                                            @if (project.Technologies != null && project.Technologies.Any())
+                                            {
+                                                <div class="mb-2">
+                                                    @foreach (var tech in project.Technologies.Take(3))
+                                                    {
+                                                        <span class="badge bg-secondary me-1 mb-1">@tech</span>
+                                                    }
+                                                    @if (project.Technologies.Count > 3)
+                                                    {
+                                                        <span class="badge bg-light text-dark">+@(project.Technologies.Count - 3)</span>
+                                                    }
+                                                </div>
+                                            }
+                                            <small class="text-muted"><i class="fas fa-info-circle me-1"></i>Click for details</small>
+                                        </div>
                                     </div>
-                                </div>
+                                }
                             </div>
-                        }
+                        </div>
                     </div>
                 </div>
             </div>
         }
 
-        @if (Model.ContactInfo != null && (!string.IsNullOrEmpty(Model.ContactInfo.Email) || !string.IsNullOrEmpty(Model.ContactInfo.Phone) || !string.IsNullOrEmpty(Model.ContactInfo.Location) || (Model.ContactInfo.SocialLinks != null && Model.ContactInfo.SocialLinks.Any())))
+        @if (Model.Education != null && Model.Education.Any())
         {
-            <!-- Contact Section -->
-            <div class="contact-section py-5 bg-dark text-white">
+            <!-- Education Section -->
+            <div class="py-4 mb-4" id="education">
                 <div class="container">
-                    <div class="row">
-                        <div class="col-12 text-center mb-4">
-                            <h2 class="display-5 fw-bold">Get In Touch</h2>
-                            <p class="lead">Let's connect and discuss opportunities</p>
+                    <div class="card shadow-sm">
+                        <div class="card-header">
+                            <h3 class="card-title mb-0">
+                                <i class="fas fa-graduation-cap text-primary me-2"></i>Education
+                            </h3>
                         </div>
-                    </div>
-                    <div class="row justify-content-center">
-                        <div class="col-md-8">
+                        <div class="card-body">
                             <div class="row">
-                                @if (!string.IsNullOrEmpty(Model.ContactInfo.Email))
+                                @foreach (var edu in Model.Education)
                                 {
-                                    <div class="col-md-6 mb-3">
-                                        <div class="d-flex align-items-center">
-                                            <i class="fas fa-envelope fa-2x text-primary me-3"></i>
-                                            <div>
-                                                <h5 class="mb-1">Email</h5>
-                                                <a href="mailto:@Model.ContactInfo.Email" class="text-white text-decoration-none">@Model.ContactInfo.Email</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                                @if (!string.IsNullOrEmpty(Model.ContactInfo.Phone))
-                                {
-                                    <div class="col-md-6 mb-3">
-                                        <div class="d-flex align-items-center">
-                                            <i class="fas fa-phone fa-2x text-primary me-3"></i>
-                                            <div>
-                                                <h5 class="mb-1">Phone</h5>
-                                                <a href="tel:@Model.ContactInfo.Phone" class="text-white text-decoration-none">@Model.ContactInfo.Phone</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                                @if (!string.IsNullOrEmpty(Model.ContactInfo.Location))
-                                {
-                                    <div class="col-md-6 mb-3">
-                                        <div class="d-flex align-items-center">
-                                            <i class="fas fa-map-marker-alt fa-2x text-primary me-3"></i>
-                                            <div>
-                                                <h5 class="mb-1">Location</h5>
-                                                <span>@Model.ContactInfo.Location</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                                @if (Model.ContactInfo.SocialLinks != null && Model.ContactInfo.SocialLinks.Any())
-                                {
-                                    <div class="col-md-6 mb-3">
-                                        <div class="d-flex align-items-center">
-                                            <i class="fas fa-share-alt fa-2x text-primary me-3"></i>
-                                            <div>
-                                                <h5 class="mb-1">Social Media</h5>
-                                                <div>
-                                                    @foreach (var social in Model.ContactInfo.SocialLinks)
+                                    <div class="col-lg-6 mb-3">
+                                        <div class="border rounded p-3 h-100">
+                                            <div class="d-flex align-items-start">
+                                                <div class="me-3">
+                                                    <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                                        <i class="fas fa-university text-white"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="flex-grow-1">
+                                                    <h6 class="mb-1">@edu.Degree</h6>
+                                                    <p class="text-primary mb-1">@edu.Institution</p>
+                                                    <p class="text-muted small mb-2">
+                                                        <i class="fas fa-calendar me-1"></i>
+                                                        @edu.StartDate?.ToString("yyyy") - @edu.EndDate?.ToString("yyyy")
+                                                    </p>
+                                                    @if (!string.IsNullOrEmpty(edu.Description))
                                                     {
-                                                        <a href="@social.Url" target="_blank" class="text-white text-decoration-none me-3">
-                                                            <i class="@social.Icon me-1"></i>@social.Platform
-                                                        </a>
+                                                        <p class="small text-muted mb-0">@edu.Description</p>
                                                     }
                                                 </div>
                                             </div>
@@ -207,127 +280,316 @@
             </div>
         }
 
+        @if (Model.ContactInfo != null && (!string.IsNullOrEmpty(Model.ContactInfo.Email) || !string.IsNullOrEmpty(Model.ContactInfo.Phone) || !string.IsNullOrEmpty(Model.ContactInfo.Location) || (Model.ContactInfo.SocialLinks != null && Model.ContactInfo.SocialLinks.Any())))
+        {
+            <!-- Contact Section -->
+            <div class="py-4 mb-4" id="contact">
+                <div class="container">
+                    <div class="card shadow-sm">
+                        <div class="card-header">
+                            <h3 class="card-title mb-0">
+                                <i class="fas fa-envelope text-primary me-2"></i>Contact Information
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                @if (!string.IsNullOrEmpty(Model.ContactInfo.Email))
+                                {
+                                    <div class="col-md-6 mb-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="me-3">
+                                                <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                                    <i class="fas fa-envelope text-white"></i>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <h6 class="mb-1">Email</h6>
+                                                <a href="mailto:@Model.ContactInfo.Email" class="text-decoration-none">@Model.ContactInfo.Email</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                @if (!string.IsNullOrEmpty(Model.ContactInfo.Phone))
+                                {
+                                    <div class="col-md-6 mb-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="me-3">
+                                                <div class="rounded-circle bg-success d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                                    <i class="fas fa-phone text-white"></i>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <h6 class="mb-1">Phone</h6>
+                                                <a href="tel:@Model.ContactInfo.Phone" class="text-decoration-none">@Model.ContactInfo.Phone</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                @if (!string.IsNullOrEmpty(Model.ContactInfo.Location))
+                                {
+                                    <div class="col-md-6 mb-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="me-3">
+                                                <div class="rounded-circle bg-info d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                                    <i class="fas fa-map-marker-alt text-white"></i>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <h6 class="mb-1">Location</h6>
+                                                <span>@Model.ContactInfo.Location</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                @if (Model.ContactInfo.SocialLinks != null && Model.ContactInfo.SocialLinks.Any())
+                                {
+                                    <div class="col-12">
+                                        <div class="text-center mt-3">
+                                            <h6 class="mb-3">Social Media</h6>
+                                            <div>
+                                                @foreach (var social in Model.ContactInfo.SocialLinks)
+                                                {
+                                                    <a href="@social.Url" target="_blank" class="btn btn-outline-primary me-2 mb-2" title="@social.Platform">
+                                                        <i class="@social.Icon me-1"></i>@social.Platform
+                                                    </a>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
         <!-- Footer -->
-        <footer class="bg-light py-3">
+        <footer class="bg-dark text-white py-4">
             <div class="container text-center">
-                <p class="text-muted mb-0">
-                    © @DateTime.Now.Year @Model.PersonalInfo.Name. 
-                    <span class="text-muted">Powered by Personal Homepage Platform</span>
+                <p class="mb-2">
+                    © @DateTime.Now.Year @Model.PersonalInfo?.Name. 
+                </p>
+                <p class="text-muted mb-0 small">
+                    <i class="fas fa-heart text-danger me-1"></i>Powered by Personal Homepage Platform
                 </p>
             </div>
         </footer>
     </div>
 </div>
 
-<style>
-    /* Modern Style (0) - Default */
-    .style-modern {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        --primary-color: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        --accent-color: #667eea;
-        --border-radius: 12px;
-        --shadow: 0 10px 30px rgba(102, 126, 234, 0.1);
+<!-- Work Experience Modals -->
+@if (Model.WorkExperiences != null && Model.WorkExperiences.Any())
+{
+    @foreach (var work in Model.WorkExperiences)
+    {
+        <div class="modal fade" id="workModal@(work.Id)" tabindex="-1" aria-labelledby="workModalLabel@(work.Id)" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <div class="d-flex align-items-center">
+                            @if (!string.IsNullOrEmpty(work.CompanyLogo))
+                            {
+                                <img src="@work.CompanyLogo" alt="@work.Company" class="me-3 rounded" style="width: 50px; height: 50px; object-fit: cover;">
+                            }
+                            else
+                            {
+                                <div class="me-3 rounded d-flex align-items-center justify-content-center" style="width: 50px; height: 50px; background: rgba(255,255,255,0.2);">
+                                    <i class="fas fa-building text-white"></i>
+                                </div>
+                            }
+                            <div>
+                                <h5 class="modal-title mb-0" id="workModalLabel@(work.Id)">@work.Position</h5>
+                                <h6 class="mb-0 opacity-75">@work.Company</h6>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <h6 class="text-primary"><i class="fas fa-calendar me-2"></i>Employment Period</h6>
+                                <p>@work.StartDate?.ToString("MMM yyyy") - @(work.IsCurrent ? "Present" : work.EndDate?.ToString("MMM yyyy"))</p>
+                            </div>
+                            @if (!string.IsNullOrEmpty(work.Location))
+                            {
+                                <div class="col-md-6">
+                                    <h6 class="text-primary"><i class="fas fa-map-marker-alt me-2"></i>Location</h6>
+                                    <p>@work.Location</p>
+                                </div>
+                            }
+                        </div>
+                        
+                        @if (!string.IsNullOrEmpty(work.DetailedDescription))
+                        {
+                            <div class="mb-3">
+                                <h6 class="text-primary"><i class="fas fa-info-circle me-2"></i>Detailed Description</h6>
+                                <p>@work.DetailedDescription</p>
+                            </div>
+                        }
+                        
+                        @if (work.Responsibilities != null && work.Responsibilities.Any())
+                        {
+                            <div class="mb-3">
+                                <h6 class="text-primary"><i class="fas fa-tasks me-2"></i>Key Responsibilities</h6>
+                                <ul class="list-unstyled">
+                                    @foreach (var responsibility in work.Responsibilities)
+                                    {
+                                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>@responsibility</li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+                        
+                        @if (work.Achievements != null && work.Achievements.Any())
+                        {
+                            <div class="mb-3">
+                                <h6 class="text-primary"><i class="fas fa-trophy me-2"></i>Key Achievements</h6>
+                                <ul class="list-unstyled">
+                                    @foreach (var achievement in work.Achievements)
+                                    {
+                                        <li class="mb-2"><i class="fas fa-star text-warning me-2"></i>@achievement</li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+                        
+                        @if (work.Technologies != null && work.Technologies.Any())
+                        {
+                            <div class="mb-3">
+                                <h6 class="text-primary"><i class="fas fa-code me-2"></i>Technology Stack</h6>
+                                <div>
+                                    @foreach (var tech in work.Technologies)
+                                    {
+                                        <span class="badge bg-primary me-1 mb-1">@tech</span>
+                                    }
+                                </div>
+                            </div>
+                        }
+                        
+                        @if (!string.IsNullOrEmpty(work.CompanyWebsite))
+                        {
+                            <div class="mb-3">
+                                <h6 class="text-primary"><i class="fas fa-globe me-2"></i>Company Website</h6>
+                                <a href="@work.CompanyWebsite" target="_blank" class="btn btn-outline-primary btn-sm">
+                                    <i class="fas fa-external-link-alt me-1"></i>Visit Website
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+<script>
+// Handle URL anchor navigation
+$(document).ready(function() {
+    // Check if there's an anchor in the URL
+    if (window.location.hash) {
+        var target = $(window.location.hash);
+        if (target.length) {
+            // Delay scrolling to ensure page is fully loaded
+            setTimeout(function() {
+                $('html, body').animate({
+                    scrollTop: target.offset().top - 80 // Subtract navbar height
+                }, 800);
+            }, 100);
+        }
     }
     
-    .style-modern .hero-section {
-        background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+    // Handle anchor link clicks
+    $('a[href^="#"]').on('click', function(e) {
+        var target = $(this.getAttribute('href'));
+        if (target.length) {
+            e.preventDefault();
+            $('html, body').animate({
+                scrollTop: target.offset().top - 80
+            }, 800);
+            
+            // Update URL without triggering page jump
+            if (history.pushState) {
+                history.pushState(null, null, this.getAttribute('href'));
+            }
+        }
+    });
+});
+</script>
+
+<!-- Project Modals -->
+@if (Model.Projects != null && Model.Projects.Any())
+{
+    @foreach (var project in Model.Projects)
+    {
+        <div class="modal fade" id="projectModal@(project.Id)" tabindex="-1" aria-labelledby="projectModalLabel@(project.Id)" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header bg-secondary text-white">
+                        <h5 class="modal-title" id="projectModalLabel@(project.Id)">@project.Name</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        @if (!string.IsNullOrEmpty(project.ImageUrl))
+                        {
+                            <div class="mb-3">
+                                <img src="@project.ImageUrl" alt="@project.Name" class="img-fluid rounded" style="max-height: 300px; width: 100%; object-fit: cover;">
+                            </div>
+                        }
+                        
+                        @if (!string.IsNullOrEmpty(project.DetailedDescription))
+                        {
+                            <div class="mb-3">
+                                <h6 class="text-primary"><i class="fas fa-info-circle me-2"></i>Project Details</h6>
+                                <p>@project.DetailedDescription</p>
+                            </div>
+                        }
+                        else if (!string.IsNullOrEmpty(project.Description))
+                        {
+                            <div class="mb-3">
+                                <h6 class="text-primary"><i class="fas fa-info-circle me-2"></i>Project Description</h6>
+                                <p>@project.Description</p>
+                            </div>
+                        }
+                        
+                        @if (project.Technologies != null && project.Technologies.Any())
+                        {
+                            <div class="mb-3">
+                                <h6 class="text-primary"><i class="fas fa-code me-2"></i>Technology Stack</h6>
+                                <div>
+                                    @foreach (var tech in project.Technologies)
+                                    {
+                                        <span class="badge bg-secondary me-1 mb-1">@tech</span>
+                                    }
+                                </div>
+                            </div>
+                        }
+                        
+                        @if (project.CompletedDate.HasValue)
+                        {
+                            <div class="mb-3">
+                                <h6 class="text-primary"><i class="fas fa-calendar me-2"></i>Completion Date</h6>
+                                <p>@project.CompletedDate?.ToString("MMM yyyy")</p>
+                            </div>
+                        }
+                        
+                        <div class="d-flex gap-2">
+                            @if (!string.IsNullOrEmpty(project.DemoUrl))
+                            {
+                                <a href="@project.DemoUrl" target="_blank" class="btn btn-primary">
+                                    <i class="fas fa-external-link-alt me-1"></i>Live Demo
+                                </a>
+                            }
+                            @if (!string.IsNullOrEmpty(project.SourceCodeUrl))
+                            {
+                                <a href="@project.SourceCodeUrl" target="_blank" class="btn btn-outline-secondary">
+                                    <i class="fab fa-github me-1"></i>Source Code
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     }
-    
-    .style-modern .card {
-        border-radius: var(--border-radius);
-        border: none;
-        box-shadow: var(--shadow);
-    }
-    
-    /* Classic Style (1) */
-    .style-classic {
-        font-family: 'Georgia', serif;
-        --primary-color: #8B4513;
-        --accent-color: #D2691E;
-        --border-radius: 4px;
-        --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-    
-    .style-classic .hero-section {
-        background: #F5F5DC;
-        border-bottom: 3px solid var(--primary-color);
-    }
-    
-    .style-classic .card {
-        border: 1px solid #DDD;
-        border-radius: var(--border-radius);
-    }
-    
-    /* Minimal Style (2) */
-    .style-minimal {
-        font-family: 'Helvetica Neue', Arial, sans-serif;
-        --primary-color: #000;
-        --accent-color: #666;
-        --border-radius: 0;
-        --shadow: none;
-    }
-    
-    .style-minimal .hero-section {
-        background: #FFF;
-        border-bottom: 1px solid #EEE;
-    }
-    
-    .style-minimal .card {
-        border: 1px solid #EEE;
-        border-radius: var(--border-radius);
-        box-shadow: var(--shadow);
-    }
-    
-    /* Creative Style (3) */
-    .style-creative {
-        font-family: 'Comic Sans MS', cursive;
-        --primary-color: linear-gradient(45deg, #FF6B6B, #4ECDC4, #45B7D1, #96CEB4, #FFEAA7);
-        --accent-color: #FF6B6B;
-        --border-radius: 20px;
-        --shadow: 0 15px 35px rgba(255, 107, 107, 0.2);
-    }
-    
-    .style-creative .hero-section {
-        background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 100%);
-        color: white;
-    }
-    
-    .style-creative .card {
-        border-radius: var(--border-radius);
-        border: none;
-        box-shadow: var(--shadow);
-        animation: pulse 2s infinite;
-    }
-    
-    /* Professional Style (4) */
-    .style-professional {
-        font-family: 'Arial', sans-serif;
-        --primary-color: #2C3E50;
-        --accent-color: #3498DB;
-        --border-radius: 6px;
-        --shadow: 0 4px 12px rgba(44, 62, 80, 0.1);
-    }
-    
-    .style-professional .hero-section {
-        background: linear-gradient(135deg, #2C3E50 0%, #3498DB 100%);
-        color: white;
-    }
-    
-    .style-professional .card {
-        border: 1px solid #BDC3C7;
-        border-radius: var(--border-radius);
-        box-shadow: var(--shadow);
-    }
-    
-    .style-professional .btn-primary {
-        background-color: var(--accent-color);
-        border-color: var(--accent-color);
-    }
-    
-    /* Keyframes */
-    @@keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.02); }
-        100% { transform: scale(1); }
-    }
-</style>
+}

@@ -90,6 +90,59 @@
       "completedDate": "2024-09-10T00:00:00"
     }
   ],
+  "workExperiences": [
+    {
+      "id": 1,
+      "company": "阿里巴巴集团",
+      "position": "高级全栈开发工程师",
+      "location": "杭州, 中国",
+      "companyWebsite": "https://www.alibaba.com",
+      "companyLogo": "https://via.placeholder.com/100x100",
+      "description": "负责电商平台核心业务模块的开发和维护，参与系统架构设计和性能优化。",
+      "detailedDescription": "在阿里巴巴集团担任高级全栈开发工程师，主要负责电商平台的核心业务模块开发，包括商品管理、订单处理、支付系统等。参与了多个大型项目的架构设计和技术选型，负责系统性能优化和代码质量管控。",
+      "technologies": ["Java", "Spring Boot", "React", "MySQL", "Redis", "Docker"],
+      "responsibilities": [
+        "负责电商平台核心模块的开发和维护",
+        "参与系统架构设计和技术选型",
+        "进行代码审查和技术指导",
+        "优化系统性能，提升用户体验"
+      ],
+      "achievements": [
+        "成功优化订单处理系统，性能提升40%",
+        "主导开发的支付模块支持日均千万级交易",
+        "获得年度优秀员工奖",
+        "指导3名初级开发工程师快速成长"
+      ],
+      "startDate": "2021-03-01T00:00:00",
+      "endDate": "2024-01-31T00:00:00",
+      "isCurrent": false
+    },
+    {
+      "id": 2,
+      "company": "腾讯科技",
+      "position": "全栈开发工程师",
+      "location": "深圳, 中国",
+      "companyWebsite": "https://www.tencent.com",
+      "companyLogo": "https://via.placeholder.com/100x100",
+      "description": "参与微信生态相关产品的开发，负责前后端技术栈的设计和实现。",
+      "detailedDescription": "在腾讯科技参与微信生态相关产品的开发工作，主要负责小程序平台和企业微信相关功能的开发。熟练掌握微信开发生态，具有丰富的移动端和Web端开发经验。",
+      "technologies": [".NET Core", "Vue.js", "微信小程序", "SQL Server", "MongoDB"],
+      "responsibilities": [
+        "开发和维护微信小程序平台功能",
+        "负责企业微信集成方案设计",
+        "参与产品需求分析和技术评估",
+        "协助团队进行技术培训"
+      ],
+      "achievements": [
+        "开发的小程序组件被团队广泛使用",
+        "参与的项目获得公司创新奖",
+        "成功交付3个大型企业客户项目"
+      ],
+      "startDate": "2019-07-01T00:00:00",
+      "endDate": "2021-02-28T00:00:00",
+      "isCurrent": false
+    }
+  ],
   "contactInfo": {
     "email": "zhangsan@example.com",
     "phone": "+86 138-0013-8000",

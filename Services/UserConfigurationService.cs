@@ -18,6 +18,7 @@ namespace PersonalHomepage.Services
         Task<bool> IsCustomUrlAvailableAsync(string customUrl, string? excludeUserId = null);
         Task<UserProfile?> GetUserProfileAsync(string userId);
         Task IncrementViewCountAsync(string customUrl);
+        Task<bool> ImportFromStaticConfigAsync(string userId, string configFilePath);
     }
 
     public class UserConfigurationService : IUserConfigurationService
@@ -277,6 +278,38 @@ namespace PersonalHomepage.Services
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error incrementing view count for URL {CustomUrl}", customUrl);
+            }
+        }
+
+        public async Task<bool> ImportFromStaticConfigAsync(string userId, string configFilePath)
+        {
+            try
+            {
+                if (!File.Exists(configFilePath))
+                {
+                    _logger.LogError("Configuration file not found: {FilePath}", configFilePath);
+                    return false;
+                }
+
+                var json = await File.ReadAllTextAsync(configFilePath);
+                var configuration = JsonSerializer.Deserialize<PageConfiguration>(json, _jsonOptions);
+                
+                if (configuration == null)
+                {
+                    _logger.LogError("Failed to deserialize configuration from file: {FilePath}", configFilePath);
+                    return false;
+                }
+
+                // 保存配置到数据库
+                await SaveUserConfigurationAsync(userId, configuration);
+                
+                _logger.LogInformation("Successfully imported configuration from {FilePath} for user {UserId}", configFilePath, userId);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error importing configuration from file {FilePath} for user {UserId}", configFilePath, userId);
+                return false;
             }
         }
 

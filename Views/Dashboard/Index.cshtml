@@ -85,6 +85,14 @@
                                             <label class="form-label">Profile Image URL</label>
                                             <input type="url" class="form-control" id="profileImageUrl" value="@Model.UserProfile.PersonalInfo?.ProfileImageUrl" />
                                         </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Welcome Message</label>
+                                            <input type="text" class="form-control" id="welcomeMessage" value="@Model.UserProfile.PersonalInfo?.WelcomeMessage" />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Highlights (one per line)</label>
+                                            <textarea class="form-control" id="highlights" rows="4">@(Model.UserProfile.PersonalInfo?.Highlights != null ? string.Join("\n", Model.UserProfile.PersonalInfo.Highlights) : "")</textarea>
+                                        </div>
                                     </div>
                                     <div class="col-md-6">
                                         <h5>Contact Information</h5>
@@ -171,6 +179,52 @@
                                 
                                 <div class="row mt-4">
                                     <div class="col-12">
+                                        <h5>Work Experience</h5>
+                                        <div id="workExperienceContainer">
+                                            @if (Model.UserProfile?.WorkExperiences != null)
+                                            {
+                                                @foreach (var work in Model.UserProfile.WorkExperiences)
+                                                {
+                                                    <div class="card mb-3 work-item">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <input type="text" class="form-control mb-2 work-company" value="@work.Company" placeholder="Company" />
+                                                                    <input type="text" class="form-control mb-2 work-position" value="@work.Position" placeholder="Position" />
+                                                                    <input type="text" class="form-control mb-2 work-location" value="@work.Location" placeholder="Location" />
+                                                                    <input type="url" class="form-control mb-2 work-website" value="@work.CompanyWebsite" placeholder="Company Website" />
+                                                                    <input type="url" class="form-control mb-2 work-logo" value="@work.CompanyLogo" placeholder="Company Logo URL" />
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <input type="date" class="form-control mb-2 work-start" value="@work.StartDate?.ToString("yyyy-MM-dd")" placeholder="Start Date" />
+                                                                    <input type="date" class="form-control mb-2 work-end" value="@work.EndDate?.ToString("yyyy-MM-dd")" placeholder="End Date" />
+                                                                    <div class="form-check mb-2">
+                                                                        <input class="form-check-input work-current" type="checkbox" @(work.IsCurrent ? "checked" : "")>
+                                                                        <label class="form-check-label">Current Position</label>
+                                                                    </div>
+                                                                    <input type="text" class="form-control mb-2 work-technologies" value="@(work.Technologies != null ? string.Join(", ", work.Technologies) : "")" placeholder="Technologies (comma separated)" />
+                                                                </div>
+                                                            </div>
+                                                            <textarea class="form-control mb-2 work-description" rows="2" placeholder="Brief Description">@work.Description</textarea>
+                                                            <textarea class="form-control mb-2 work-detailed-description" rows="3" placeholder="Detailed Description">@work.DetailedDescription</textarea>
+                                                            <textarea class="form-control mb-2 work-responsibilities" rows="2" placeholder="Responsibilities (one per line)">@(work.Responsibilities != null ? string.Join("\n", work.Responsibilities) : "")</textarea>
+                                                            <textarea class="form-control mb-2 work-achievements" rows="2" placeholder="Achievements (one per line)">@(work.Achievements != null ? string.Join("\n", work.Achievements) : "")</textarea>
+                                                            <button type="button" class="btn btn-outline-danger btn-sm remove-work">
+                                                                <i class="fas fa-trash me-2"></i>Remove Work Experience
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                        <button type="button" class="btn btn-outline-primary btn-sm" id="addWorkExperience">
+                                            <i class="fas fa-plus me-2"></i>Add Work Experience
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="row mt-4">
+                                    <div class="col-12">
                                         <h5>Education</h5>
                                         <div id="educationContainer">
                                             @if (Model.UserProfile?.Education != null)
@@ -208,14 +262,17 @@
                                 
                                 <div class="mt-4">
                                     <button type="button" class="btn btn-primary" id="saveProfile">
-                                    <span id="saveProfileText">
-                                        <i class="fas fa-save me-2"></i>Save Profile
-                                    </span>
-                                    <span id="saveProfileSpinner" class="d-none">
-                                        <i class="fas fa-spinner fa-spin me-2"></i>Saving...
-                                    </span>
-                                </button>
-                                <div id="saveProfileResult" class="mt-2"></div>
+                                        <span id="saveProfileText">
+                                            <i class="fas fa-save me-2"></i>Save Profile
+                                        </span>
+                                        <span id="saveProfileSpinner" class="d-none">
+                                            <i class="fas fa-spinner fa-spin me-2"></i>Saving...
+                                        </span>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary ms-2" data-bs-toggle="modal" data-bs-target="#importModal">
+                                        <i class="fas fa-upload me-2"></i>Import from JSON
+                                    </button>
+                                    <div id="saveProfileResult" class="mt-2"></div>
                                 </div>
                             </form>
                         </div>
@@ -232,11 +289,12 @@
                             <div class="row">
                                 @{
                                     var styles = new[] {
-                                        new { Name = "Modern", Value = 0, Description = "Clean and contemporary design with smooth animations" },
-                                        new { Name = "Classic", Value = 1, Description = "Traditional and elegant layout with timeless appeal" },
-                                        new { Name = "Minimal", Value = 2, Description = "Simple and focused design with plenty of white space" },
-                                        new { Name = "Creative", Value = 3, Description = "Bold and artistic with vibrant colors and animations" },
-                                        new { Name = "Professional", Value = 4, Description = "Corporate and polished for business presentations" }
+                                        new { Name = "Default", Value = 0, Description = "Standard theme with balanced design and functionality" },
+                                        new { Name = "Modern", Value = 1, Description = "Clean and contemporary design with smooth animations" },
+                                        new { Name = "Classic", Value = 2, Description = "Traditional and elegant layout with timeless appeal" },
+                                        new { Name = "Minimal", Value = 3, Description = "Simple and focused design with plenty of white space" },
+                                        new { Name = "Creative", Value = 4, Description = "Bold and artistic with vibrant colors and animations" },
+                                        new { Name = "Professional", Value = 5, Description = "Corporate and polished for business presentations" }
                                     };
                                 }
                                 @foreach (var style in styles)
@@ -372,6 +430,41 @@
     </div>
 </div>
 
+<!-- Import Configuration Modal -->
+<div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="importModalLabel">
+                    <i class="fas fa-upload me-2"></i>Import Configuration from JSON
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="importForm" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="configFile" class="form-label">Select JSON Configuration File</label>
+                        <input type="file" class="form-control" id="configFile" name="configFile" accept=".json" required>
+                        <div class="form-text">Please select a valid JSON file containing your page configuration.</div>
+                    </div>
+                    <div id="importResult" class="mt-2"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="importSubmitBtn">
+                        <span id="importSubmitText">
+                            <i class="fas fa-upload me-2"></i>Import Configuration
+                        </span>
+                        <span id="importSubmitSpinner" class="d-none">
+                            <i class="fas fa-spinner fa-spin me-2"></i>Importing...
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     <style>
         .alert-sm {
@@ -480,6 +573,57 @@
                 $(this).closest('.education-item').remove();
             });
             
+            // Add work experience functionality
+            $('#addWorkExperience').click(function() {
+                const workExperienceHtml = `
+                    <div class="card mb-3 work-experience-item">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control mb-2 work-company" placeholder="Company" />
+                                    <input type="text" class="form-control mb-2 work-position" placeholder="Position" />
+                                    <input type="text" class="form-control mb-2 work-location" placeholder="Location" />
+                                    <input type="url" class="form-control mb-2 work-website" placeholder="Company Website" />
+                                    <input type="url" class="form-control mb-2 work-logo" placeholder="Company Logo URL" />
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="date" class="form-control mb-2 work-start" placeholder="Start Date" />
+                                    <input type="date" class="form-control mb-2 work-end" placeholder="End Date" />
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input work-current" type="checkbox" />
+                                        <label class="form-check-label">Currently working here</label>
+                                    </div>
+                                    <input type="text" class="form-control mb-2 work-technologies" placeholder="Technologies (comma separated)" />
+                                </div>
+                            </div>
+                            <textarea class="form-control mb-2 work-description" rows="2" placeholder="Brief Description"></textarea>
+                            <textarea class="form-control mb-2 work-detailed-description" rows="3" placeholder="Detailed Description"></textarea>
+                            <textarea class="form-control mb-2 work-responsibilities" rows="2" placeholder="Key Responsibilities"></textarea>
+                            <textarea class="form-control mb-2 work-achievements" rows="2" placeholder="Key Achievements"></textarea>
+                            <button type="button" class="btn btn-outline-danger btn-sm remove-work-experience">
+                                <i class="fas fa-trash me-2"></i>Remove Work Experience
+                            </button>
+                        </div>
+                    </div>
+                `;
+                $('#workExperienceContainer').append(workExperienceHtml);
+            });
+            
+            // Remove work experience functionality
+            $(document).on('click', '.remove-work-experience', function() {
+                $(this).closest('.work-experience-item').remove();
+            });
+            
+            // Handle current work checkbox
+            $(document).on('change', '.work-current', function() {
+                const $endDate = $(this).closest('.work-experience-item').find('.work-end');
+                if ($(this).is(':checked')) {
+                    $endDate.prop('disabled', true).val('');
+                } else {
+                    $endDate.prop('disabled', false);
+                }
+            });
+            
             // Theme selection
             $('.select-theme').click(function() {
                 const theme = $(this).data('theme');
@@ -555,12 +699,49 @@
                     }
                 });
                 
+                const workExperiences = [];
+                $('.work-experience-item').each(function() {
+                    const company = $(this).find('.work-company').val();
+                    const position = $(this).find('.work-position').val();
+                    const location = $(this).find('.work-location').val();
+                    const companyWebsite = $(this).find('.work-website').val();
+                    const companyLogo = $(this).find('.work-logo').val();
+                    const startDate = $(this).find('.work-start').val();
+                    const endDate = $(this).find('.work-end').val();
+                    const isCurrent = $(this).find('.work-current').is(':checked');
+                    const technologies = $(this).find('.work-technologies').val();
+                    const description = $(this).find('.work-description').val();
+                    const detailedDescription = $(this).find('.work-detailed-description').val();
+                    const responsibilities = $(this).find('.work-responsibilities').val();
+                    const achievements = $(this).find('.work-achievements').val();
+                    
+                    if (company) {
+                        workExperiences.push({
+                            company: company,
+                            position: position,
+                            location: location,
+                            companyWebsite: companyWebsite,
+                            companyLogo: companyLogo,
+                            startDate: startDate ? new Date(startDate).toISOString() : null,
+                            endDate: isCurrent ? null : (endDate ? new Date(endDate).toISOString() : null),
+                            isCurrent: isCurrent,
+                            technologies: technologies ? technologies.split(',').map(t => t.trim()) : [],
+                            description: description,
+                            detailedDescription: detailedDescription,
+                            responsibilities: responsibilities ? responsibilities.split('\n').filter(r => r.trim()) : [],
+                            achievements: achievements ? achievements.split('\n').filter(a => a.trim()) : []
+                        });
+                    }
+                });
+                
                 const config = {
                     personalInfo: {
                         name: $('#fullName').val(),
                         title: $('#title').val(),
-                        bio: $('#bio').val(),
-                        profileImageUrl: $('#profileImageUrl').val()
+                        description: $('#bio').val(),
+                        profileImageUrl: $('#profileImageUrl').val(),
+                        welcomeMessage: $('#welcomeMessage').val(),
+                        highlights: $('#highlights').val() ? $('#highlights').val().split('\n').filter(h => h.trim()) : []
                     },
                     contactInfo: {
                         email: $('#email').val(),
@@ -569,11 +750,16 @@
                     },
                     skills: skills,
                     projects: projects,
+                    workExperiences: workExperiences,
                     education: education,
                     theme: {
                         displayStyle: parseInt($('.theme-card.border-primary').data('theme')) || 0
                     }
                 };
+                
+                // Debug: Log the workExperiences data
+                console.log('WorkExperiences being sent:', workExperiences);
+                console.log('Full config object:', config);
                 
                 $.ajax({
                     url: '@Url.Action("SaveConfiguration", "Dashboard")',
@@ -589,6 +775,60 @@
                     },
                     error: function() {
                         $result.html('<div class="alert alert-danger alert-sm"><i class="fas fa-exclamation-triangle me-2"></i>Error saving profile. Please try again.</div>');
+                    },
+                    complete: function() {
+                        // Reset button state
+                        $button.prop('disabled', false);
+                        $text.removeClass('d-none');
+                        $spinner.addClass('d-none');
+                    }
+                });
+            });
+            
+            // Import configuration from file upload
+            $('#importForm').submit(function(e) {
+                e.preventDefault();
+                
+                const $form = $(this);
+                const $button = $('#importSubmitBtn');
+                const $text = $('#importSubmitText');
+                const $spinner = $('#importSubmitSpinner');
+                const $result = $('#importResult');
+                const fileInput = $('#configFile')[0];
+                
+                if (!fileInput.files.length) {
+                    $result.html('<div class="alert alert-warning alert-sm"><i class="fas fa-exclamation-triangle me-2"></i>Please select a JSON file to upload.</div>');
+                    return;
+                }
+                
+                // Show loading state
+                $button.prop('disabled', true);
+                $text.addClass('d-none');
+                $spinner.removeClass('d-none');
+                $result.empty();
+                
+                const formData = new FormData();
+                formData.append('ConfigFile', fileInput.files[0]);
+                
+                $.ajax({
+                    url: '@Url.Action("UploadConfiguration", "Dashboard")',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(result) {
+                        if (result.success) {
+                            $result.html('<div class="alert alert-success alert-sm"><i class="fas fa-check-circle me-2"></i>Configuration imported successfully! Refreshing page...</div>');
+                            setTimeout(function() {
+                                $('#importModal').modal('hide');
+                                location.reload();
+                            }, 1500);
+                        } else {
+                            $result.html('<div class="alert alert-danger alert-sm"><i class="fas fa-times-circle me-2"></i>Error importing configuration: ' + (result.message || 'Unknown error') + '</div>');
+                        }
+                    },
+                    error: function() {
+                        $result.html('<div class="alert alert-danger alert-sm"><i class="fas fa-exclamation-triangle me-2"></i>Error importing configuration. Please try again.</div>');
                     },
                     complete: function() {
                         // Reset button state

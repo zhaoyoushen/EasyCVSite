@@ -13,15 +13,18 @@ namespace PersonalHomepage.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IUserConfigurationService _userConfigService;
         private readonly ILogger<DashboardController> _logger;
+        private readonly IWebHostEnvironment _environment;
 
         public DashboardController(
             UserManager<ApplicationUser> userManager,
             IUserConfigurationService userConfigService,
-            ILogger<DashboardController> logger)
+            ILogger<DashboardController> logger,
+            IWebHostEnvironment environment)
         {
             _userManager = userManager;
             _userConfigService = userConfigService;
             _logger = logger;
+            _environment = environment;
         }
 
         public async Task<IActionResult> Index()
@@ -71,6 +74,18 @@ namespace PersonalHomepage.Controllers
                 if (user == null)
                 {
                     return Json(new { success = false, message = "User not found" });
+                }
+
+                // Debug: Log the received configuration
+                _logger.LogInformation($"Received configuration for user {user.Id}");
+                _logger.LogInformation($"WorkExperiences count: {configuration?.WorkExperiences?.Count ?? 0}");
+                
+                if (configuration?.WorkExperiences?.Count > 0)
+                {
+                    foreach (var we in configuration.WorkExperiences)
+                    {
+                        _logger.LogInformation($"WorkExperience: {we.Company} - {we.Position}");
+                    }
                 }
 
                 await _userConfigService.SaveUserConfigurationAsync(user.Id, configuration);
@@ -258,6 +273,40 @@ namespace PersonalHomepage.Controllers
             {
                 _logger.LogError(ex, "Error updating publish settings");
                 return Json(new { success = false, message = "Error updating publish settings" });
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UploadConfiguration(IFormFile configFile)
+        {
+            try
+            {
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    return Json(new { success = false, message = "User not found" });
+                }
+
+                if (configFile == null || configFile.Length == 0)
+                {
+                    return Json(new { success = false, message = "Please select a valid JSON configuration file" });
+                }
+
+                var result = await _userConfigService.UploadConfigurationAsync(user.Id, configFile);
+                
+                if (result)
+                {
+                    return Json(new { success = true, message = "Configuration uploaded successfully!" });
+                }
+                else
+                {
+                    return Json(new { success = false, message = "Failed to upload configuration. Please check the file format." });
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error uploading configuration");
+                return Json(new { success = false, message = "Error uploading configuration" });
             }
         }
 

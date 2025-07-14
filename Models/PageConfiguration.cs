@@ -7,6 +7,7 @@ namespace PersonalHomepage.Models
         public PersonalInfo? PersonalInfo { get; set; }
         public List<Skill>? Skills { get; set; }
         public List<Project>? Projects { get; set; }
+        public List<WorkExperience>? WorkExperiences { get; set; }
         public List<Education>? Education { get; set; }
         public ContactInfo? ContactInfo { get; set; }
         public ThemeSettings? Theme { get; set; }
@@ -70,16 +71,17 @@ namespace PersonalHomepage.Models
         public string? BackgroundColor { get; set; }
         public string? TextColor { get; set; }
         public string? FontFamily { get; set; }
-        public DisplayStyle DisplayStyle { get; set; } = DisplayStyle.Modern;
+        public DisplayStyle DisplayStyle { get; set; } = DisplayStyle.Default;
     }
 
     public enum DisplayStyle
     {
-        Modern = 0,      // Modern Style (Default)
-        Classic = 1,     // Classic Style
-        Minimal = 2,     // Minimal Style
-        Creative = 3,    // Creative Style
-        Professional = 4 // Professional Style
+        Default = 0,     // Default Style
+        Modern = 1,      // Modern Style
+        Classic = 2,     // Classic Style
+        Minimal = 3,     // Minimal Style
+        Creative = 4,    // Creative Style
+        Professional = 5 // Professional Style
     }
 
     public class ConfigurationUpload
