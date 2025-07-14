@@ -208,8 +208,14 @@
                                 
                                 <div class="mt-4">
                                     <button type="button" class="btn btn-primary" id="saveProfile">
+                                    <span id="saveProfileText">
                                         <i class="fas fa-save me-2"></i>Save Profile
-                                    </button>
+                                    </span>
+                                    <span id="saveProfileSpinner" class="d-none">
+                                        <i class="fas fa-spinner fa-spin me-2"></i>Saving...
+                                    </span>
+                                </button>
+                                <div id="saveProfileResult" class="mt-2"></div>
                                 </div>
                             </form>
                         </div>
@@ -275,16 +281,24 @@
                                         <span class="input-group-text">@(Context.Request.Scheme)://@(Context.Request.Host)/u/</span>
                                         <input type="text" class="form-control" id="customUrl" value="@Model.PublicUrl" placeholder="your-name">
                                         <button class="btn btn-outline-secondary" type="button" id="checkUrl">
-                                            <i class="fas fa-check"></i>
+                                            <span id="checkUrlText">Check</span>
+                                            <i class="fas fa-spinner fa-spin d-none" id="checkUrlSpinner"></i>
                                         </button>
                                     </div>
+                                    <div id="urlCheckResult" class="mb-2"></div>
                                     <small class="text-muted">Leave empty to use your user ID as URL</small>
                                     
                                     <div class="mt-3">
                                         <button type="button" class="btn btn-success" id="savePublishSettings">
-                                            <i class="fas fa-save me-2"></i>Save Settings
+                                            <span id="saveSettingsText">
+                                                <i class="fas fa-save me-2"></i>Save Settings
+                                            </span>
+                                            <span id="saveSettingsSpinner" class="d-none">
+                                                <i class="fas fa-spinner fa-spin me-2"></i>Saving...
+                                            </span>
                                         </button>
                                     </div>
+                                    <div id="saveSettingsResult" class="mt-2"></div>
                                 </div>
                                 <div class="col-md-6">
                                     <h5>Preview</h5>
@@ -292,7 +306,7 @@
                                     {
                                         <div class="alert alert-success">
                                             <h6>Your page is live!</h6>
-                                            <p>URL: <a href="@Url.Action("Public", "Home", new { url = Model.PublicUrl })" target="_blank">
+                                            <p>URL: <a href="@(Context.Request.Scheme)://@(Context.Request.Host)/u/@(Model.PublicUrl)" target="_blank">
                                                 @(Context.Request.Scheme)://@(Context.Request.Host)/u/@(Model.PublicUrl)
                                             </a></p>
                                         </div>
@@ -359,6 +373,23 @@
 </div>
 
 @section Scripts {
+    <style>
+        .alert-sm {
+            padding: 0.5rem 0.75rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+        }
+        
+        #checkUrl:disabled,
+        #saveProfile:disabled,
+        #savePublishSettings:disabled {
+            cursor: not-allowed;
+        }
+    </style>
     <script>
         $(document).ready(function() {
             // Add skill functionality
@@ -460,6 +491,17 @@
             
             // Save profile
             $('#saveProfile').click(function() {
+                const $button = $(this);
+                const $text = $('#saveProfileText');
+                const $spinner = $('#saveProfileSpinner');
+                const $result = $('#saveProfileResult');
+                
+                // Show loading state
+                $button.prop('disabled', true);
+                $text.addClass('d-none');
+                $spinner.removeClass('d-none');
+                $result.empty();
+                
                 const skills = [];
                 $('.skill-row').each(function() {
                     const name = $(this).find('input[type="text"]').val();
@@ -540,24 +582,46 @@
                     data: JSON.stringify(config),
                     success: function(result) {
                         if (result.success) {
-                            alert('Profile saved successfully!');
+                            $result.html('<div class="alert alert-success alert-sm"><i class="fas fa-check-circle me-2"></i>Profile saved successfully!</div>');
                         } else {
-                            alert('Error saving profile: ' + result.message);
+                            $result.html('<div class="alert alert-danger alert-sm"><i class="fas fa-times-circle me-2"></i>Error saving profile: ' + result.message + '</div>');
                         }
                     },
                     error: function() {
-                        alert('Error saving profile.');
+                        $result.html('<div class="alert alert-danger alert-sm"><i class="fas fa-exclamation-triangle me-2"></i>Error saving profile. Please try again.</div>');
+                    },
+                    complete: function() {
+                        // Reset button state
+                        $button.prop('disabled', false);
+                        $text.removeClass('d-none');
+                        $spinner.addClass('d-none');
                     }
                 });
+            });
+            
+            // Clear URL check result when input changes
+            $('#customUrl').on('input', function() {
+                $('#urlCheckResult').empty();
             });
             
             // Check URL availability
             $('#checkUrl').click(function() {
                 const url = $('#customUrl').val();
+                const $button = $(this);
+                const $text = $('#checkUrlText');
+                const $spinner = $('#checkUrlSpinner');
+                const $result = $('#urlCheckResult');
+                
                 if (!url) {
-                    alert('Please enter a URL');
+                    $result.html('<div class="alert alert-warning alert-sm"><i class="fas fa-exclamation-triangle me-2"></i>Please enter a URL to check</div>');
                     return;
                 }
+                
+                // Show loading state
+                $button.prop('disabled', true);
+                $text.addClass('d-none');
+                $spinner.removeClass('d-none');
+                $result.empty();
                 
                 $.ajax({
                     url: '@Url.Action("CheckUrlAvailability", "Dashboard")',
@@ -565,10 +629,19 @@
                     data: { url: url },
                     success: function(result) {
                         if (result.available) {
-                            alert('URL is available!');
+                            $result.html('<div class="alert alert-success alert-sm"><i class="fas fa-check-circle me-2"></i>Great! This URL is available and ready to use.</div>');
                         } else {
-                            alert('URL is not available. Please choose another.');
+                            $result.html('<div class="alert alert-danger alert-sm"><i class="fas fa-times-circle me-2"></i>Sorry, this URL is already taken. Please try a different one.</div>');
                         }
+                    },
+                    error: function() {
+                        $result.html('<div class="alert alert-danger alert-sm"><i class="fas fa-exclamation-triangle me-2"></i>Error checking URL availability. Please try again.</div>');
+                    },
+                    complete: function() {
+                        // Reset button state
+                        $button.prop('disabled', false);
+                        $text.removeClass('d-none');
+                        $spinner.addClass('d-none');
                     }
                 });
             });
@@ -577,6 +650,16 @@
             $('#savePublishSettings').click(function() {
                 const isPublished = $('#publishToggle').is(':checked');
                 const customUrl = $('#customUrl').val();
+                const $button = $(this);
+                const $text = $('#saveSettingsText');
+                const $spinner = $('#saveSettingsSpinner');
+                const $result = $('#saveSettingsResult');
+                
+                // Show loading state
+                $button.prop('disabled', true);
+                $text.addClass('d-none');
+                $spinner.removeClass('d-none');
+                $result.empty();
                 
                 $.ajax({
                     url: '@Url.Action("UpdatePublishSettings", "Dashboard")',
@@ -587,11 +670,22 @@
                     },
                     success: function(result) {
                         if (result.success) {
-                            alert('Publish settings saved successfully!');
-                            location.reload();
+                            $result.html('<div class="alert alert-success alert-sm"><i class="fas fa-check-circle me-2"></i>Publish settings saved successfully! Refreshing page...</div>');
+                            setTimeout(function() {
+                                location.reload();
+                            }, 1500);
                         } else {
-                            alert('Error saving settings: ' + result.message);
+                            $result.html('<div class="alert alert-danger alert-sm"><i class="fas fa-times-circle me-2"></i>Error saving settings: ' + result.message + '</div>');
                         }
+                    },
+                    error: function() {
+                        $result.html('<div class="alert alert-danger alert-sm"><i class="fas fa-exclamation-triangle me-2"></i>Error saving publish settings. Please try again.</div>');
+                    },
+                    complete: function() {
+                        // Reset button state
+                        $button.prop('disabled', false);
+                        $text.removeClass('d-none');
+                        $spinner.addClass('d-none');
                     }
                 });
             });

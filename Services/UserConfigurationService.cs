@@ -11,6 +11,7 @@ namespace PersonalHomepage.Services
         Task<PageConfiguration> GetUserConfigurationAsync(string userId);
         Task<PageConfiguration?> GetPublicConfigurationAsync(string customUrl);
         Task SaveUserConfigurationAsync(string userId, PageConfiguration configuration);
+        Task<bool> UploadConfigurationAsync(string userId, IFormFile file);
         Task<bool> PublishConfigurationAsync(string userId);
         Task<bool> UnpublishConfigurationAsync(string userId);
         Task<bool> SetCustomUrlAsync(string userId, string customUrl);
@@ -119,6 +120,33 @@ namespace PersonalHomepage.Services
             {
                 _logger.LogError(ex, "Error saving configuration for user {UserId}", userId);
                 throw;
+            }
+        }
+
+        public async Task<bool> UploadConfigurationAsync(string userId, IFormFile file)
+        {
+            try
+            {
+                if (file == null || file.Length == 0)
+                    return false;
+
+                using var stream = file.OpenReadStream();
+                using var reader = new StreamReader(stream);
+                var json = await reader.ReadToEndAsync();
+
+                // 验证JSON格式
+                var configuration = JsonSerializer.Deserialize<PageConfiguration>(json, _jsonOptions);
+                if (configuration == null)
+                    return false;
+
+                // 保存用户配置
+                await SaveUserConfigurationAsync(userId, configuration);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error uploading configuration file for user {UserId}", userId);
+                return false;
             }
         }
 

@@ -4,6 +4,7 @@ using PersonalHomepage.Models;
 using PersonalHomepage.Services;
 using System.Text.Json;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PersonalHomepage.Controllers
 {
@@ -110,24 +111,34 @@ namespace PersonalHomepage.Controllers
     }
     
     // 配置管理相关方法
+    [Authorize]
     public IActionResult Admin()
     {
         return View();
     }
     
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> UploadConfiguration(ConfigurationUpload upload)
     {
         if (ModelState.IsValid && upload.ConfigFile != null)
         {
-            var success = await _configurationService.UploadConfigurationAsync(upload.ConfigFile);
-            if (success)
+            var userId = _userManager.GetUserId(User);
+            if (userId != null)
             {
-                TempData["SuccessMessage"] = "配置文件上传成功！页面内容已更新。";
+                var success = await _userConfigurationService.UploadConfigurationAsync(userId, upload.ConfigFile);
+                if (success)
+                {
+                    TempData["SuccessMessage"] = "配置文件上传成功！页面内容已更新。";
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "配置文件上传失败，请检查文件格式是否正确。";
+                }
             }
             else
             {
-                TempData["ErrorMessage"] = "配置文件上传失败，请检查文件格式是否正确。";
+                TempData["ErrorMessage"] = "用户身份验证失败，请重新登录。";
             }
         }
         else
@@ -139,19 +150,29 @@ namespace PersonalHomepage.Controllers
     }
     
     [HttpGet]
+    [Authorize]
     public async Task<IActionResult> DownloadConfiguration()
     {
         try
         {
-            var configuration = await _configurationService.GetConfigurationAsync();
-            var json = System.Text.Json.JsonSerializer.Serialize(configuration, new System.Text.Json.JsonSerializerOptions
+            var userId = _userManager.GetUserId(User);
+            if (userId != null)
             {
-                PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase,
-                WriteIndented = true
-            });
-            
-            var bytes = System.Text.Encoding.UTF8.GetBytes(json);
-            return File(bytes, "application/json", "page-config.json");
+                var configuration = await _userConfigurationService.GetUserConfigurationAsync(userId);
+                var json = System.Text.Json.JsonSerializer.Serialize(configuration, new System.Text.Json.JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase,
+                    WriteIndented = true
+                });
+                
+                var bytes = System.Text.Encoding.UTF8.GetBytes(json);
+                return File(bytes, "application/json", "page-config.json");
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "用户身份验证失败，请重新登录。";
+                return RedirectToAction(nameof(Admin));
+            }
         }
         catch (Exception ex)
         {
@@ -162,13 +183,52 @@ namespace PersonalHomepage.Controllers
     }
     
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> ResetToDefault()
     {
         try
         {
-            var defaultConfig = _configurationService.GetDefaultConfiguration();
-            await _configurationService.SaveConfigurationAsync(defaultConfig);
-            TempData["SuccessMessage"] = "配置已重置为默认设置。";
+            var userId = _userManager.GetUserId(User);
+            if (userId != null)
+            {
+                // 创建一个空的默认配置
+                var defaultConfig = new PageConfiguration
+                {
+                    PersonalInfo = new PersonalInfo
+                    {
+                        Name = "Your Name",
+                        Title = "Professional Title",
+                        Description = "Tell the world about yourself and your expertise.",
+                        ProfileImageUrl = "https://via.placeholder.com/400",
+                        WelcomeMessage = "Welcome to My Personal Homepage",
+                        Highlights = new List<string> { "Add your professional highlights here." }
+                    },
+                    Skills = new List<Skill>(),
+                    Projects = new List<Project>(),
+                    ContactInfo = new ContactInfo
+                    {
+                        Email = "your.email@example.com",
+                        Phone = "+1 (555) 123-4567",
+                        Location = "Your City, Country",
+                        SocialLinks = new List<SocialLink>()
+                    },
+                    Theme = new ThemeSettings
+                    {
+                        DisplayStyle = DisplayStyle.Modern,
+                        PrimaryColor = "#007bff",
+                        SecondaryColor = "#6c757d",
+                        BackgroundColor = "#ffffff",
+                        TextColor = "#333333",
+                        FontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
+                    }
+                };
+                await _userConfigurationService.SaveUserConfigurationAsync(userId, defaultConfig);
+                TempData["SuccessMessage"] = "配置已重置为默认设置。";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "用户身份验证失败，请重新登录。";
+            }
         }
         catch (Exception ex)
         {

@@ -39,9 +39,7 @@ namespace PersonalHomepage.Controllers
             {
                 UserProfile = configuration,
                 UserDisplayName = user.DisplayName ?? user.Email,
-                PublicUrl = !string.IsNullOrEmpty(user.CustomUrl) 
-                    ? Url.Action("Public", "Home", new { url = user.CustomUrl }, Request.Scheme)
-                    : null,
+                PublicUrl = user.CustomUrl,
                 IsPublished = profile?.IsPublished ?? false,
                 TotalViews = profile?.ViewCount ?? 0,
                 CreatedAt = profile?.CreatedAt ?? DateTime.UtcNow,
@@ -178,7 +176,7 @@ namespace PersonalHomepage.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> CheckUrlAvailability(string url)
         {
             try
@@ -201,6 +199,65 @@ namespace PersonalHomepage.Controllers
             {
                 _logger.LogError(ex, "Error checking URL availability");
                 return Json(new { available = false });
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdatePublishSettings(bool isPublished, string customUrl)
+        {
+            try
+            {
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    return Json(new { success = false, message = "User not found" });
+                }
+
+                // 如果要发布但没有自定义URL，返回错误
+                if (isPublished && string.IsNullOrWhiteSpace(customUrl))
+                {
+                    return Json(new { success = false, message = "Please set a custom URL before publishing" });
+                }
+
+                // 如果提供了自定义URL，先设置URL
+                if (!string.IsNullOrWhiteSpace(customUrl))
+                {
+                    if (!IsValidCustomUrl(customUrl))
+                    {
+                        return Json(new { success = false, message = "Invalid URL format. Use only letters, numbers, and hyphens." });
+                    }
+
+                    if (!await _userConfigService.IsCustomUrlAvailableAsync(customUrl, user.Id))
+                    {
+                        return Json(new { success = false, message = "This URL is already taken" });
+                    }
+
+                    await _userConfigService.SetCustomUrlAsync(user.Id, customUrl);
+                }
+
+                // 设置发布状态
+                bool result;
+                if (isPublished)
+                {
+                    result = await _userConfigService.PublishConfigurationAsync(user.Id);
+                }
+                else
+                {
+                    result = await _userConfigService.UnpublishConfigurationAsync(user.Id);
+                }
+
+                if (result)
+                {
+                    var message = isPublished ? "Page published successfully!" : "Page unpublished successfully!";
+                    return Json(new { success = true, message });
+                }
+
+                return Json(new { success = false, message = "Failed to update publish settings" });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error updating publish settings");
+                return Json(new { success = false, message = "Error updating publish settings" });
             }
         }
 

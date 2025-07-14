@@ -1,0 +1,272 @@
+{
+  "personalInfo": {
+    "name": "张伟",
+    "title": "全栈开发工程师 & 技术架构师",
+    "description": "拥有8年软件开发经验，专注于.NET生态系统、云原生架构和前端技术。热衷于技术创新，致力于构建高性能、可扩展的企业级应用系统。",
+    "profileImageUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
+    "welcomeMessage": "欢迎来到我的个人主页",
+    "highlights": [
+      "🚀 8年全栈开发经验，精通.NET Core、React、Vue.js等技术栈",
+      "☁️ 云原生架构专家，熟练使用Docker、Kubernetes、Azure等云平台",
+      "📊 数据驱动决策，擅长大数据分析和机器学习应用",
+      "🎯 敏捷开发实践者，具备丰富的团队协作和项目管理经验",
+      "💡 开源贡献者，在GitHub上维护多个受欢迎的开源项目"
+    ]
+  },
+  "skills": [
+    {
+      "name": "C# / .NET Core",
+      "proficiency": 95
+    },
+    {
+      "name": "ASP.NET Core MVC/API",
+      "proficiency": 92
+    },
+    {
+      "name": "Entity Framework Core",
+      "proficiency": 90
+    },
+    {
+      "name": "JavaScript / TypeScript",
+      "proficiency": 88
+    },
+    {
+      "name": "React.js",
+      "proficiency": 85
+    },
+    {
+      "name": "Vue.js",
+      "proficiency": 82
+    },
+    {
+      "name": "Node.js",
+      "proficiency": 80
+    },
+    {
+      "name": "SQL Server / PostgreSQL",
+      "proficiency": 88
+    },
+    {
+      "name": "MongoDB / Redis",
+      "proficiency": 75
+    },
+    {
+      "name": "Docker / Kubernetes",
+      "proficiency": 85
+    },
+    {
+      "name": "Azure / AWS",
+      "proficiency": 78
+    },
+    {
+      "name": "Git / DevOps",
+      "proficiency": 90
+    },
+    {
+      "name": "Python",
+      "proficiency": 72
+    },
+    {
+      "name": "微服务架构",
+      "proficiency": 88
+    },
+    {
+      "name": "系统设计",
+      "proficiency": 85
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "name": "智能电商平台",
+      "description": "基于微服务架构的大型电商平台，支持千万级用户并发访问，集成AI推荐系统。",
+      "imageUrl": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop",
+      "detailedDescription": "这是一个完整的企业级电商解决方案，采用微服务架构设计，包含用户管理、商品目录、订单处理、支付系统、库存管理、物流跟踪等核心模块。系统使用.NET Core作为后端框架，React作为前端技术栈，支持高并发访问和弹性扩展。集成了机器学习推荐算法，能够为用户提供个性化的商品推荐服务。",
+      "technologies": [
+        "ASP.NET Core",
+        "React.js",
+        "Entity Framework Core",
+        "SQL Server",
+        "Redis",
+        "Docker",
+        "Kubernetes",
+        "Azure Service Bus",
+        "Elasticsearch",
+        "Machine Learning.NET"
+      ],
+      "demoUrl": "https://demo-ecommerce.example.com",
+      "sourceCodeUrl": "https://github.com/zhangwei/smart-ecommerce",
+      "completedDate": "2024-12-15T00:00:00"
+    },
+    {
+      "id": 2,
+      "name": "企业级项目管理系统",
+      "description": "现代化的项目管理平台，支持敏捷开发流程，集成CI/CD管道和实时协作功能。",
+      "imageUrl": "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=600&h=400&fit=crop",
+      "detailedDescription": "一个功能完整的企业级项目管理系统，支持敏捷开发方法论，包括需求管理、任务分配、进度跟踪、团队协作、文档管理等功能。系统采用前后端分离架构，后端使用.NET Core Web API，前端使用Vue.js构建。集成了GitLab CI/CD，支持自动化部署和测试。提供丰富的报表和数据分析功能，帮助项目经理做出数据驱动的决策。",
+      "technologies": [
+        ".NET Core Web API",
+        "Vue.js",
+        "Element Plus",
+        "PostgreSQL",
+        "SignalR",
+        "GitLab CI/CD",
+        "Docker",
+        "Nginx",
+        "Chart.js",
+        "WebSocket"
+      ],
+      "demoUrl": "https://demo-pm.example.com",
+      "sourceCodeUrl": "https://github.com/zhangwei/enterprise-pm",
+      "completedDate": "2024-10-20T00:00:00"
+    },
+    {
+      "id": 3,
+      "name": "实时数据分析平台",
+      "description": "大数据实时处理和可视化平台，支持多数据源接入和自定义仪表板。",
+      "imageUrl": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
+      "detailedDescription": "一个强大的实时数据分析和可视化平台，能够处理来自多个数据源的海量数据流。系统采用事件驱动架构，使用Apache Kafka进行消息队列处理，ClickHouse作为时序数据库，支持毫秒级的数据查询响应。前端提供拖拽式仪表板设计器，用户可以自定义各种图表和报表。集成了机器学习算法，支持异常检测和趋势预测。",
+      "technologies": [
+        ".NET Core",
+        "Apache Kafka",
+        "ClickHouse",
+        "React.js",
+        "D3.js",
+        "Apache Spark",
+        "Python",
+        "TensorFlow",
+        "Docker Swarm",
+        "Grafana"
+      ],
+      "demoUrl": "https://demo-analytics.example.com",
+      "sourceCodeUrl": "https://github.com/zhangwei/realtime-analytics",
+      "completedDate": "2024-08-30T00:00:00"
+    },
+    {
+      "id": 4,
+      "name": "智能客服机器人",
+      "description": "基于自然语言处理的智能客服系统，支持多轮对话和知识库管理。",
+      "imageUrl": "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?w=600&h=400&fit=crop",
+      "detailedDescription": "一个集成了自然语言处理技术的智能客服机器人系统，能够理解用户意图并提供准确的回答。系统使用BERT模型进行语义理解，支持多轮对话和上下文记忆。包含知识库管理、对话流设计、客服工单系统等功能。支持多渠道接入，包括网页聊天、微信、钉钉等平台。",
+      "technologies": [
+        "ASP.NET Core",
+        "Python Flask",
+        "BERT",
+        "Transformers",
+        "MongoDB",
+        "Elasticsearch",
+        "WebSocket",
+        "微信API",
+        "钉钉API",
+        "Docker"
+      ],
+      "demoUrl": "https://demo-chatbot.example.com",
+      "sourceCodeUrl": "https://github.com/zhangwei/smart-chatbot",
+      "completedDate": "2024-06-15T00:00:00"
+    },
+    {
+      "id": 5,
+      "name": "区块链投票系统",
+      "description": "基于以太坊的去中心化投票平台，确保投票过程的透明性和不可篡改性。",
+      "imageUrl": "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=600&h=400&fit=crop",
+      "detailedDescription": "一个基于区块链技术的去中心化投票系统，使用智能合约确保投票过程的透明性和不可篡改性。系统支持多种投票类型，包括单选、多选、排序投票等。提供完整的投票生命周期管理，从投票创建、候选人管理到结果统计。集成了数字身份验证，确保一人一票的公平性。",
+      "technologies": [
+        "Solidity",
+        "Web3.js",
+        "React.js",
+        "Node.js",
+        "Ethereum",
+        "MetaMask",
+        "IPFS",
+        "Truffle",
+        "Ganache",
+        "OpenZeppelin"
+      ],
+      "demoUrl": "https://demo-voting.example.com",
+      "sourceCodeUrl": "https://github.com/zhangwei/blockchain-voting",
+      "completedDate": "2024-04-10T00:00:00"
+    }
+  ],
+  "education": [
+    {
+      "id": 1,
+      "institution": "清华大学",
+      "degree": "计算机科学与技术硕士",
+      "fieldOfStudy": "软件工程与系统架构",
+      "description": "专注于分布式系统、微服务架构和云计算技术研究。硕士论文主题为《基于容器化的微服务架构性能优化研究》，获得优秀论文奖。",
+      "startDate": "2014-09-01T00:00:00",
+      "endDate": "2017-07-01T00:00:00",
+      "grade": "GPA 3.8/4.0",
+      "achievements": [
+        "获得国家奖学金（2015年、2016年）",
+        "硕士论文获得优秀论文奖",
+        "参与导师主持的国家自然科学基金项目",
+        "在国际会议ICSE发表学术论文1篇",
+        "担任研究生会技术部部长"
+      ]
+    },
+    {
+      "id": 2,
+      "institution": "北京理工大学",
+      "degree": "软件工程学士",
+      "fieldOfStudy": "软件开发与项目管理",
+      "description": "系统学习了软件工程理论与实践，掌握了完整的软件开发生命周期管理。积极参与各类编程竞赛和开源项目，培养了扎实的编程基础和团队协作能力。",
+      "startDate": "2010-09-01T00:00:00",
+      "endDate": "2014-07-01T00:00:00",
+      "grade": "GPA 3.7/4.0，专业排名前10%",
+      "achievements": [
+        "获得校级优秀毕业生称号",
+        "ACM程序设计竞赛校赛一等奖",
+        "全国大学生软件创新大赛二等奖",
+        "连续三年获得学业奖学金",
+        "担任计算机学院学生会主席",
+        "组织并参与多个开源项目开发"
+      ]
+    }
+  ],
+  "contactInfo": {
+    "email": "zhysh20047@gmail.com",
+    "phone": "+86 138-0013-8888",
+    "location": "北京市海淀区中关村软件园",
+    "socialLinks": [
+      {
+        "platform": "GitHub",
+        "url": "https://github.com/zhangwei-dev",
+        "icon": "fab fa-github"
+      },
+      {
+        "platform": "LinkedIn",
+        "url": "https://linkedin.com/in/zhangwei-fullstack",
+        "icon": "fab fa-linkedin"
+      },
+      {
+        "platform": "微博",
+        "url": "https://weibo.com/zhangwei-tech",
+        "icon": "fab fa-weibo"
+      },
+      {
+        "platform": "知乎",
+        "url": "https://zhihu.com/people/zhangwei-dev",
+        "icon": "fab fa-zhihu"
+      },
+      {
+        "platform": "CSDN",
+        "url": "https://blog.csdn.net/zhangwei_dev",
+        "icon": "fas fa-blog"
+      },
+      {
+        "platform": "Stack Overflow",
+        "url": "https://stackoverflow.com/users/zhangwei",
+        "icon": "fab fa-stack-overflow"
+      }
+    ]
+  },
+  "theme": {
+    "primaryColor": "#2563eb",
+    "secondaryColor": "#64748b",
+    "backgroundColor": "#ffffff",
+    "textColor": "#1e293b",
+    "fontFamily": "'Inter', 'Microsoft YaHei', 'Segoe UI', sans-serif",
+    "displayStyle": 0
+  }
+}
