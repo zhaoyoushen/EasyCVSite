@@ -76,18 +76,6 @@ namespace PersonalHomepage.Controllers
                     return Json(new { success = false, message = "User not found" });
                 }
 
-                // Debug: Log the received configuration
-                _logger.LogInformation($"Received configuration for user {user.Id}");
-                _logger.LogInformation($"WorkExperiences count: {configuration?.WorkExperiences?.Count ?? 0}");
-                
-                if (configuration?.WorkExperiences?.Count > 0)
-                {
-                    foreach (var we in configuration.WorkExperiences)
-                    {
-                        _logger.LogInformation($"WorkExperience: {we.Company} - {we.Position}");
-                    }
-                }
-
                 await _userConfigService.SaveUserConfigurationAsync(user.Id, configuration);
                 return Json(new { success = true, message = "Configuration saved successfully" });
             }

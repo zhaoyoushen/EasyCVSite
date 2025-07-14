@@ -185,7 +185,7 @@
                                             {
                                                 @foreach (var work in Model.UserProfile.WorkExperiences)
                                                 {
-                                                    <div class="card mb-3 work-item">
+                                                    <div class="card mb-3 work-experience-item">
                                                         <div class="card-body">
                                                             <div class="row">
                                                                 <div class="col-md-6">
@@ -209,7 +209,7 @@
                                                             <textarea class="form-control mb-2 work-detailed-description" rows="3" placeholder="Detailed Description">@work.DetailedDescription</textarea>
                                                             <textarea class="form-control mb-2 work-responsibilities" rows="2" placeholder="Responsibilities (one per line)">@(work.Responsibilities != null ? string.Join("\n", work.Responsibilities) : "")</textarea>
                                                             <textarea class="form-control mb-2 work-achievements" rows="2" placeholder="Achievements (one per line)">@(work.Achievements != null ? string.Join("\n", work.Achievements) : "")</textarea>
-                                                            <button type="button" class="btn btn-outline-danger btn-sm remove-work">
+                                                            <button type="button" class="btn btn-outline-danger btn-sm remove-work-experience">
                                                                 <i class="fas fa-trash me-2"></i>Remove Work Experience
                                                             </button>
                                                         </div>
@@ -756,10 +756,6 @@
                         displayStyle: parseInt($('.theme-card.border-primary').data('theme')) || 0
                     }
                 };
-                
-                // Debug: Log the workExperiences data
-                console.log('WorkExperiences being sent:', workExperiences);
-                console.log('Full config object:', config);
                 
                 $.ajax({
                     url: '@Url.Action("SaveConfiguration", "Dashboard")',

@@ -52,8 +52,10 @@ namespace PersonalHomepage.Services
                 {
                     var configuration = JsonSerializer.Deserialize<PageConfiguration>(
                         profile.ConfigurationJson, _jsonOptions);
+                    
                     return configuration ?? GetDefaultConfiguration();
                 }
+
 
                 return GetDefaultConfiguration();
             }
@@ -115,7 +117,6 @@ namespace PersonalHomepage.Services
                 }
 
                 await _context.SaveChangesAsync();
-                _logger.LogInformation("Configuration saved for user {UserId}", userId);
             }
             catch (Exception ex)
             {
